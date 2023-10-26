@@ -13,13 +13,13 @@ const SideBar = () => {
       }}
     >
       <Box>
-        <Link href="/Profile">
+        <Link href="/?section=profile">
           <ListItemButton>
             <ListItemText primary="Profile" />
           </ListItemButton>
         </Link>
 
-        <Link href="/Contacts">
+        <Link href="/?section=contacts">
           <ListItemButton>
             <ListItemText primary="contacts" />
           </ListItemButton>
