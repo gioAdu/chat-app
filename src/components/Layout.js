@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 const Layout = () => {
   const router = useRouter();
-  const [currentSection, setCurrentSection] = useState('');
+  const [currentSection, setCurrentSection] = useState();
   const [selectedChat, setSelectedChat] = useState(null);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Layout = () => {
   // Update state in local storage whenever it changes
   useEffect(() => {
     console.log(currentSection);
-    if (router.isReady) {
+    if (currentSection !== undefined) {
       localStorage.setItem('section', currentSection);
       router.push({
         pathname: router.pathname,
