@@ -26,7 +26,6 @@ const SignUp = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="given-name"
                 name="firstName"
                 required
                 fullWidth
@@ -78,7 +77,7 @@ const SignUp = () => {
           <Grid item display={'flex'} justifyContent={'center'} gap={2}>
             <Typography component={'span'}>Already have an account?</Typography>
             <Link
-              href="/auth/SignIn"
+              href="/auth/signin"
               variant="body2"
               sx={{ textAlign: 'center', color: 'primary.main' }}
             >

@@ -10,11 +10,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const SignIn = () => {
-    const router = useRouter()
+  const router = useRouter();
   const handleClick = (e) => {
     e.preventDefault();
 
-    router.push('/')
+    router.push('/');
   };
 
   return (
@@ -47,27 +47,27 @@ const SignIn = () => {
           //   helperText={'wrong password'}
           autoComplete="current-password"
         />
-        <Button type="submit" fullWidth variant='contained' sx={{ my: 2 }}>
+        <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
           Log in
         </Button>
-        <Grid container>
-          <Grid item xs>
-            <Link href="/auth/Recover">
-              <Typography sx={{ color: 'primary.main' }}>
-                Forgot password?
-              </Typography>
-            </Link>
-          </Grid>
-          <Grid item>
-            <Typography component={'span'}>Don't have an account?</Typography>
-            <Link href="/auth/SignUp">
-              <Typography sx={{ textAlign: 'center', color: 'primary.main' }}>
-                Sign Up now
-              </Typography>
-            </Link>
-          </Grid>
-        </Grid>
       </Box>
+      <Grid container>
+        <Grid item xs>
+          <Link href="/auth/recover">
+            <Typography sx={{ color: 'primary.main' }}>
+              Forgot password?
+            </Typography>
+          </Link>
+        </Grid>
+        <Grid item>
+          <Typography component={'span'}>Don't have an account?</Typography>
+          <Link href="/auth/signup">
+            <Typography sx={{ textAlign: 'center', color: 'primary.main' }}>
+              Sign Up now
+            </Typography>
+          </Link>
+        </Grid>
+      </Grid>
     </Container>
   );
 };

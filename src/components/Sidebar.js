@@ -1,7 +1,20 @@
 import { Box, List, ListItemButton, ListItemText } from '@mui/material';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const SideBar = () => {
+const SideBar = ({ currentSection, setCurrentSection }) => {
+  const router = useRouter();
+  
+  const handleClick = (section) => (event) => {
+    event.preventDefault();
+    setCurrentSection(section);
+
+    router.push({
+      pathname: router.pathname,
+      query: section,
+   });
+  };
+
   return (
     <List
       component="nav"
@@ -13,17 +26,13 @@ const SideBar = () => {
       }}
     >
       <Box>
-        <Link href="/?section=profile">
-          <ListItemButton>
-            <ListItemText primary="Profile" />
-          </ListItemButton>
-        </Link>
+        <ListItemButton onClick={handleClick('profile')}>
+          <ListItemText primary="Profile" />
+        </ListItemButton>
 
-        <Link href="/?section=contacts">
-          <ListItemButton>
-            <ListItemText primary="contacts" />
-          </ListItemButton>
-        </Link>
+        <ListItemButton onClick={handleClick('contacts')}>
+          <ListItemText primary="contacts" />
+        </ListItemButton>
       </Box>
       <Link href="#">
         <ListItemButton>
