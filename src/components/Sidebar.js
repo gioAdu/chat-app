@@ -4,15 +4,14 @@ import { useRouter } from 'next/router';
 
 const SideBar = ({ currentSection, setCurrentSection }) => {
   const router = useRouter();
-  
+
   const handleClick = (section) => (event) => {
     event.preventDefault();
     setCurrentSection(section);
-
     router.push({
       pathname: router.pathname,
-      query: section,
-   });
+      query: { section: section },
+    });
   };
 
   return (
@@ -34,7 +33,7 @@ const SideBar = ({ currentSection, setCurrentSection }) => {
           <ListItemText primary="contacts" />
         </ListItemButton>
       </Box>
-      <Link href="#">
+      <Link href="/auth/signin">
         <ListItemButton>
           <ListItemText primary="Log out" />
         </ListItemButton>

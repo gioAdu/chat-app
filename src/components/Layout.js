@@ -10,19 +10,27 @@ const Layout = () => {
   const [currentSection, setCurrentSection] = useState('');
   const [selectedChat, setSelectedChat] = useState(null);
 
-  // Load state from local storage and URL on initial render
   useEffect(() => {
-    const sectionFromStorage = localStorage.getItem('section');
-    const chatFromStorage = localStorage.getItem('chat');
-    const sectionFromURL = router.query.section;
-
-    setCurrentSection(sectionFromStorage || sectionFromURL || 'contacts');
-    setSelectedChat(chatFromStorage || null);
-  }, []);
+    if (router.isReady) {
+      const sectionFromURL = router.query.section;
+      const sectionFromStorage = localStorage.getItem('section');
+      const chatFromStorage = localStorage.getItem('chat');
+      setCurrentSection(sectionFromURL || sectionFromStorage || 'contacts');
+      setSelectedChat(chatFromStorage || null);
+    }
+  }, [router.isReady]);
 
   // Update state in local storage whenever it changes
   useEffect(() => {
-    localStorage.setItem('section', currentSection);
+    console.log(currentSection);
+    if (router.isReady) {
+      localStorage.setItem('section', currentSection);
+      router.push({
+        pathname: router.pathname,
+        query: { section: currentSection },
+      });
+    }
+
     if (selectedChat) {
       localStorage.setItem('chat', selectedChat);
     }

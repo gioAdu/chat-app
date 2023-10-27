@@ -9,7 +9,6 @@ import { CssBaseline } from '@mui/material';
 
 export default function App({ Component, pageProps }) {
   const theme = useTheme();
- 
 
   return (
     <ThemeProvider theme={theme}>
