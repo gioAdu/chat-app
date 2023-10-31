@@ -5,11 +5,21 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import PageProvider from '@/components/helpers/PageProvider';
+import createEmotionCache from '@/components/helpers/createEmotionCache';
+import { CacheProvider } from '@emotion/react';
 
-export default function App({ Component, pageProps }) {
+const clientSideEmotionCache = createEmotionCache();
+
+export default function App({
+  Component,
+  emotionCache = clientSideEmotionCache,
+  pageProps,
+}) {
   return (
-    <PageProvider>
-      <Component {...pageProps} />
-    </PageProvider>
+    <CacheProvider value={emotionCache}>
+      <PageProvider>
+        <Component {...pageProps} />
+      </PageProvider>
+    </CacheProvider>
   );
 }
