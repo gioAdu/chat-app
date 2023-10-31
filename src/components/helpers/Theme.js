@@ -16,6 +16,7 @@ export const darkTheme = createTheme({
     lightBg: {
       light: '#303841',
       main: '#36404a',
+      dark: '#262e35',
     },
   },
 });

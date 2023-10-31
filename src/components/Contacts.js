@@ -2,11 +2,12 @@ import {
   Box,
   InputAdornment,
   List,
-  ListItem,
+  ListItemButton,
   TextField,
   Typography,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import ChatCard from './UI/ChatCard';
 
 const Contacts = ({ setSelectedChat }) => {
   const TmpList = [
@@ -15,12 +16,19 @@ const Contacts = ({ setSelectedChat }) => {
       img: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=300&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       name: 'Some Rando',
       lastMsg: 'Something',
-      timeStamp: '2:40Pm',
+      timeStamp: '2:40PM',
+    },
+    {
+      id: 2,
+      img: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=300&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      name: 'Second Rando',
+      lastMsg: 'Something Else Entirely',
+      timeStamp: '2:40PM',
     },
   ];
   return (
     <Box>
-      <Typography paddingTop={1} paddingBottom={2} component="h1" variant="h4">
+      <Typography paddingTop={2} fontWeight='medium' paddingBottom={2} component="h1" variant="h5">
         Chats
       </Typography>
 
@@ -38,6 +46,7 @@ const Contacts = ({ setSelectedChat }) => {
             },
           },
         }}
+        fullWidth
         id="filled-basic"
         sx={{
           backgroundColor: 'lightBg.main',
@@ -50,10 +59,14 @@ const Contacts = ({ setSelectedChat }) => {
         size="small"
       />
       <Typography component="p" variant="h6" paddingTop={2}>
-        Recent{' '}
+        Recent
       </Typography>
       <List>
-        <ListItem>test</ListItem>
+        {TmpList.map((item) => (
+          <ListItemButton key={item.id}>
+            <ChatCard item={item} />
+          </ListItemButton>
+        ))}
       </List>
     </Box>
   );

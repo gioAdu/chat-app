@@ -9,7 +9,7 @@ import PageProvider from '@/components/helpers/PageProvider';
 export default function App({ Component, pageProps }) {
   return (
     <PageProvider>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </PageProvider>
   );
 }

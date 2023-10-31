@@ -24,7 +24,6 @@ const Layout = () => {
   useEffect(() => {
     if (currentSection !== undefined) {
       if (currentSection !== 'contacts' && currentSection !== 'profile') {
-        // Redirect to the "contacts" page
         router.push('/?section=contacts');
       } else {
         localStorage.setItem('section', currentSection);
@@ -48,7 +47,7 @@ const Layout = () => {
           setCurrentSection={setCurrentSection}
         />
       </Grid>
-      <Grid item xs={3} paddingLeft={3}>
+      <Grid item xs={3} paddingX={3} bgcolor={'lightBg.light'}>
         {currentSection === 'profile' && <Profile />}
         {currentSection === 'contacts' && (
           <Contacts setSelectedChat={setSelectedChat} />

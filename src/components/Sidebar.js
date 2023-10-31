@@ -40,6 +40,7 @@ const SideBar = ({ setCurrentSection }) => {
         flexDirection: 'column',
         justifyContent: 'space-between',
         boxShadow: '0 2px 4px rgba(15,34,58,.12)',
+        backgroundColor: 'lightBg.main',
       }}
     >
       <Box>
@@ -55,7 +56,9 @@ const SideBar = ({ setCurrentSection }) => {
       <Box>
         <IconButton
           sx={{ width: '100%', borderRadius: 0 }}
-          aria-label={`switch to ${resolvedTheme === 'light' ? 'dark' : 'light'} mode`}
+          aria-label={`switch to ${
+            resolvedTheme === 'light' ? 'dark' : 'light'
+          } mode`}
           onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
         >
           {resolvedTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
