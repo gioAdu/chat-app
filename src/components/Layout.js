@@ -22,13 +22,17 @@ const Layout = () => {
 
   // Update state in local storage whenever it changes
   useEffect(() => {
-    console.log(currentSection);
     if (currentSection !== undefined) {
-      localStorage.setItem('section', currentSection);
-      router.push({
-        pathname: router.pathname,
-        query: { section: currentSection },
-      });
+      if (currentSection !== 'contacts' && currentSection !== 'profile') {
+        // Redirect to the "contacts" page
+        router.push('/?section=contacts');
+      } else {
+        localStorage.setItem('section', currentSection);
+        router.push({
+          pathname: router.pathname,
+          query: { section: currentSection },
+        });
+      }
     }
 
     if (selectedChat) {
@@ -44,7 +48,7 @@ const Layout = () => {
           setCurrentSection={setCurrentSection}
         />
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={3} paddingLeft={3}>
         {currentSection === 'profile' && <Profile />}
         {currentSection === 'contacts' && (
           <Contacts setSelectedChat={setSelectedChat} />
