@@ -2,7 +2,6 @@ import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import Image from 'next/image';
 
 const ChatCard = ({ item }) => {
-  console.log(item);
   return (
     <Card
       sx={{
@@ -22,6 +21,7 @@ const ChatCard = ({ item }) => {
           src={item.img}
           width={50}
           height={50}
+          priority
           alt="Your image alt text"
         />
       </CardMedia>

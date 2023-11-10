@@ -1,3 +1,7 @@
-const ChatRoom = () => {};
+const ChatRoom = () => {
+    return <>
+    hello gang
+    </>
+};
 
 export default ChatRoom;
