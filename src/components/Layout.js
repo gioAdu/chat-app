@@ -4,6 +4,7 @@ import Profile from './Profile';
 import Contacts from './Contacts';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import ChatRoom from './ChatRoom';
 
 const Layout = () => {
   const router = useRouter();
@@ -55,6 +56,9 @@ const Layout = () => {
       </Grid>
       <Grid item>
         <Box>{selectedChat && <Chat chatId={selectedChat} />}</Box>
+        <Box>
+          <ChatRoom chatId={selectedChat} />
+        </Box>
       </Grid>
     </Grid>
   );

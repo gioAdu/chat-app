@@ -15,6 +15,6 @@ const PageProvider = ({ children, emotionCache = clientSideEmotionCache }) => (
       <MUIThemeProvider>{children}</MUIThemeProvider>
     </CacheProvider>
   </PreferredThemeProvider>
-);
+)
 
 export default PageProvider;

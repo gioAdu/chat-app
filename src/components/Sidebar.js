@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   List,
   ListItemButton,
   ListItemText,
@@ -9,16 +8,12 @@ import {
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 const SideBar = ({ setCurrentSection }) => {
   const router = useRouter();
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
 
   const handleClick = (section) => (event) => {
     event.preventDefault();
@@ -28,8 +23,6 @@ const SideBar = ({ setCurrentSection }) => {
       query: { section: section },
     });
   };
-
-  if (!mounted) return;
 
   return (
     <List
