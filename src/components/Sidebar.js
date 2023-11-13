@@ -7,21 +7,16 @@ import {
 } from '@mui/material';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 const SideBar = ({ setCurrentSection }) => {
-  const router = useRouter();
   const { resolvedTheme, setTheme } = useTheme();
 
   const handleClick = (section) => (event) => {
+    localStorage.setItem('section', section);
     event.preventDefault();
     setCurrentSection(section);
-    router.push({
-      pathname: router.pathname,
-      query: { section: section },
-    });
   };
 
   return (
@@ -33,7 +28,7 @@ const SideBar = ({ setCurrentSection }) => {
         flexDirection: 'column',
         justifyContent: 'space-between',
         boxShadow: '0 2px 4px rgba(15,34,58,.12)',
-        backgroundColor: 'lightBg.main',
+        backgroundColor: 'lightBg.light_2',
       }}
     >
       <Box>

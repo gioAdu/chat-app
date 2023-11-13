@@ -30,8 +30,12 @@ const TmpList = [
 const Contacts = ({ setSelectedChat }) => {
   const inputRef = useRef();
 
-  const handleClick = () => {
+  const handleSearch = () => {
     inputRef.current.focus()
+  }
+
+  const handleClick = (id) => {
+    setSelectedChat(id)
   }
 
   return (
@@ -50,7 +54,7 @@ const Contacts = ({ setSelectedChat }) => {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon onClick={handleClick}/>
+              <SearchIcon onClick={handleSearch}/>
             </InputAdornment>
           ),
           disableUnderline: true,
@@ -78,7 +82,7 @@ const Contacts = ({ setSelectedChat }) => {
       </Typography>
       <List>
         {TmpList.map((item) => (
-          <ListItemButton key={item.id}>
+          <ListItemButton key={item.id} onClick={() => handleClick(item.id)}>
             <ChatCard item={item} />
           </ListItemButton>
         ))}

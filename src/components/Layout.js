@@ -14,10 +14,12 @@ const Layout = () => {
   useEffect(() => {
     if (router.isReady) {
       const sectionFromURL = router.query.section;
+      const chatFromURL = router.query.chatId;
       const sectionFromStorage = localStorage.getItem('section');
       const chatFromStorage = localStorage.getItem('chat');
+
       setCurrentSection(sectionFromURL || sectionFromStorage || 'contacts');
-      setSelectedChat(chatFromStorage || null);
+      setSelectedChat(chatFromURL || chatFromStorage || null);
     }
   }, [router.isReady]);
 
@@ -26,6 +28,13 @@ const Layout = () => {
     if (currentSection !== undefined) {
       if (currentSection !== 'contacts' && currentSection !== 'profile') {
         router.push('/?section=contacts');
+      } else if (selectedChat) {
+        localStorage.setItem('chat', selectedChat);
+        localStorage.setItem('section', currentSection);
+        router.push({
+          pathname: router.pathname,
+          query: { section: currentSection, chatId: selectedChat },
+        });
       } else {
         localStorage.setItem('section', currentSection);
         router.push({
@@ -33,10 +42,6 @@ const Layout = () => {
           query: { section: currentSection },
         });
       }
-    }
-
-    if (selectedChat) {
-      localStorage.setItem('chat', selectedChat);
     }
   }, [currentSection, selectedChat]);
 
@@ -54,11 +59,8 @@ const Layout = () => {
           <Contacts setSelectedChat={setSelectedChat} />
         )}
       </Grid>
-      <Grid item>
-        <Box>{selectedChat && <Chat chatId={selectedChat} />}</Box>
-        <Box>
-          <ChatRoom chatId={selectedChat} />
-        </Box>
+      <Grid item xs>
+        {selectedChat && <ChatRoom chatId={selectedChat} />}
       </Grid>
     </Grid>
   );

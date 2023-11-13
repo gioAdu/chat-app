@@ -6,6 +6,8 @@ export const lightTheme = createTheme({
     lightBg: {
       light: '#f5f7fb',
       main: '#e6ebf5',
+      light_2: '#fff',
+      dark: '#fff',
     },
   },
 });
@@ -15,6 +17,7 @@ export const darkTheme = createTheme({
     mode: 'dark',
     lightBg: {
       light: '#303841',
+      light_2: '#36404a',
       main: '#36404a',
       dark: '#262e35',
     },
