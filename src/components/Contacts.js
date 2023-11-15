@@ -31,12 +31,12 @@ const Contacts = ({ setSelectedChat }) => {
   const inputRef = useRef();
 
   const handleSearch = () => {
-    inputRef.current.focus()
-  }
+    inputRef.current.focus();
+  };
 
   const handleClick = (id) => {
-    setSelectedChat(id)
-  }
+    setSelectedChat(id);
+  };
 
   return (
     <Box>
@@ -54,7 +54,7 @@ const Contacts = ({ setSelectedChat }) => {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon onClick={handleSearch}/>
+              <SearchIcon onClick={handleSearch} />
             </InputAdornment>
           ),
           disableUnderline: true,
