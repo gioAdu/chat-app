@@ -7,7 +7,7 @@ export const validateSurname = (surname) => {
 };
 
 export const validateEmail = (email) => {
-  return !email.includes('@') || email.length < 6;
+  return !email.includes('@');
 };
 
 export const validatePassword = (password) => {

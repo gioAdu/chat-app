@@ -19,6 +19,7 @@ import {
   validateRepeatPassword,
   validateSurname,
 } from '@/components/helpers/validateForm';
+import { signupFunc } from '@/components/helpers/firebase/Auth';
 
 const SignUp = () => {
   const { resolvedTheme, setTheme } = useTheme();
@@ -38,7 +39,7 @@ const SignUp = () => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [repeatPasswordError, setRepeatPasswordError] = useState(false);
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
 
     const nameError = validateName(name);
@@ -55,6 +56,24 @@ const SignUp = () => {
     setEmailError(emailError);
     setPasswordError(passwordError);
     setRepeatPasswordError(repeatPasswordError);
+
+    if (
+      nameError ||
+      surnameError ||
+      emailError ||
+      passwordError ||
+      repeatPasswordError
+    ) {
+      return;
+    }
+
+    const { result, error } = await signupFunc(email, password);
+
+    if (error) {
+      return console.log(error);
+    }
+
+    console.log(result);
   };
 
   return (

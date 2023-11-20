@@ -2,6 +2,7 @@ import { useTheme } from 'next-themes';
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Grid,
   IconButton,
@@ -14,35 +15,71 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { signinFunc } from '@/components/helpers/firebase/Auth';
+import {
+  validateEmail,
+  validatePassword,
+} from '@/components/helpers/validateForm';
 
 const SignIn = () => {
   const router = useRouter();
   const { resolvedTheme, setTheme } = useTheme();
+
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleClick = (e) => {
+  const [errorMsg, setErrorMsg] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = async (e) => {
     e.preventDefault();
-    console.log('test');
-    const emailVal = email.trim();
-    const passwordVal = password.trim();
 
-    if (!emailVal.includes('@') || emailVal.length < 6) {
-      setEmailError(true);
-      return;
+    if (!loading) {
+      setLoading(true);
+
+      const emailError = validateEmail(email);
+      const passwordError = validatePassword(password);
+
+      setEmailError(emailError);
+      setPasswordError(passwordError);
+
+      if (emailError || passwordError) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/signin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        if (!response.ok) {
+          const data = await response.json();
+          setEmailError(data.emailError);
+          setPasswordError(data.passwordError);
+          setErrorMsg(data.message)
+        } else {
+          setEmailError(false);
+          setPasswordError(false);
+          setErrorMsg('')
+
+          const data = await response.json();
+          console.log(data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+      setLoading(false);
+
+      router.push('/');
     }
-    setEmailError(false);
-
-    if (passwordVal.length < 8) {
-      setPasswordError(true);
-      return;
-    }
-    setPasswordError(false);
-
-    router.push('/');
   };
 
   return (
@@ -97,9 +134,36 @@ const SignIn = () => {
           }
           autoComplete="current-password"
         />
-        <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
-          Log in
-        </Button>
+        {errorMsg && (
+          <Typography
+            sx={{ paddingTop: 1, textAlign: 'center', color: 'error.main' }}
+          >
+            {errorMsg}
+          </Typography>
+        )}
+        <Box sx={{ position: 'relative' }}>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ my: 2 }}
+            disabled={loading}
+          >
+            Log in
+          </Button>
+          {loading && (
+            <CircularProgress
+              size={28}
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                marginTop: '-13px',
+                marginLeft: '-13px',
+              }}
+            />
+          )}
+        </Box>
       </Box>
       <Grid container>
         <Grid item xs>

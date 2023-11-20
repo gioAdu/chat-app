@@ -9,6 +9,7 @@ import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import { logoutFunc } from './helpers/firebase/Auth';
 
 const SideBar = ({ setCurrentSection }) => {
   const { resolvedTheme, setTheme } = useTheme();
@@ -17,6 +18,11 @@ const SideBar = ({ setCurrentSection }) => {
     localStorage.setItem('section', section);
     event.preventDefault();
     setCurrentSection(section);
+  };
+
+  const handleLogout = async() => {
+   const logout = await  logoutFunc()
+   console.log(logout);
   };
 
   return (
@@ -52,7 +58,7 @@ const SideBar = ({ setCurrentSection }) => {
           {resolvedTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
         </IconButton>
 
-        <Link href="/auth/signin">
+        <Link href="/" onClick={handleLogout}>
           <ListItemButton>
             <ListItemText primary="Log out" />
           </ListItemButton>
