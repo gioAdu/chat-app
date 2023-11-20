@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import Image from 'next/image';
 
-const ChatCard = ({ item }) => {
+const ContactCard = ({ item }) => {
   return (
     <Card
       sx={{
@@ -58,4 +58,4 @@ const ChatCard = ({ item }) => {
   );
 };
 
-export default ChatCard;
+export default ContactCard;

@@ -1,7 +1,6 @@
 import { Send } from '@mui/icons-material';
 import {
   Box,
-  CardMedia,
   CircularProgress,
   Grid,
   IconButton,

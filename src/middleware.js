@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 export default async function middleware(req) {
-  const isAuthenticated = true
+  const isAuthenticated = false
 
   if (req.nextUrl.pathname === '/' && !isAuthenticated) {
     return NextResponse.redirect(new URL('/auth/signin', req.url))

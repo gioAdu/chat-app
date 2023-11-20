@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import ChatCard from './UI/ChatCard';
+import ContactCard from './UI/ContactCard';
 import { useRef } from 'react';
 
 const TmpList = [
@@ -80,10 +80,10 @@ const Contacts = ({ setSelectedChat }) => {
       <Typography component="p" variant="h6" paddingTop={2}>
         Recent
       </Typography>
-      <List>
+      <List sx={{paddingY:0}}>
         {TmpList.map((item) => (
           <ListItemButton key={item.id} onClick={() => handleClick(item.id)}>
-            <ChatCard item={item} />
+            <ContactCard item={item} />
           </ListItemButton>
         ))}
       </List>
