@@ -51,32 +51,16 @@ const SignIn = () => {
         return;
       }
 
-      try {
-        const response = await fetch('/api/signin', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, password }),
-        });
+      const { result, error } = await signinFunc(email, password);
 
-        if (!response.ok) {
-          const data = await response.json();
-          setEmailError(data.emailError);
-          setPasswordError(data.passwordError);
-          setErrorMsg(data.message)
-        } else {
-          setEmailError(false);
-          setPasswordError(false);
-          setErrorMsg('')
-
-          const data = await response.json();
-          console.log(data);
-        }
-      } catch (error) {
-        console.error(error);
-      }
       setLoading(false);
+
+      if (error) {
+        setErrorMsg(error);
+        return;
+      }
+
+      console.log(result);
 
       router.push('/');
     }

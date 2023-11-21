@@ -14,10 +14,9 @@ export default function Home() {
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log('user exists');
-        //router.push('/auth/signin');
+        router.push('/auth/signin');
       } else {
-        console.log('user does not exist');
+        router.push('/');
       }
     });
 
