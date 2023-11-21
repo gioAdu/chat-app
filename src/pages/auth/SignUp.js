@@ -18,8 +18,9 @@ import {
   validatePassword,
   validateRepeatPassword,
   validateSurname,
-} from '@/components/helpers/validateForm';
+} from '@/components/helpers/validators/validateForm';
 import { signupFunc } from '@/components/helpers/firebase/Auth';
+import withAuthProtection from '@/components/helpers/validators/authChecker';
 
 const SignUp = () => {
   const { resolvedTheme, setTheme } = useTheme();
@@ -39,9 +40,12 @@ const SignUp = () => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [repeatPasswordError, setRepeatPasswordError] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   const handleClick = async (e) => {
     e.preventDefault();
 
+    console.log('test');
     const nameError = validateName(name);
     const surnameError = validateSurname(surname);
     const emailError = validateEmail(email);
@@ -102,7 +106,7 @@ const SignUp = () => {
           </IconButton>
         </Box>
 
-        <Box component="form" noValidate sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={handleClick} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -185,15 +189,29 @@ const SignUp = () => {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            onClick={handleClick}
-          >
-            Sign Up
-          </Button>
+          <Box sx={{ position: 'relative' }}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              disabled={loading}
+            >
+              Sign Up
+            </Button>
+            {loading && (
+              <CircularProgress
+                size={28}
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  marginTop: '-13px',
+                  marginLeft: '-13px',
+                }}
+              />
+            )}
+          </Box>
           <Grid container justifyContent="center">
             <Grid item>
               <Typography component={'span'}>
@@ -212,4 +230,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default withAuthProtection(SignUp, false);

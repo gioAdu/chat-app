@@ -19,10 +19,10 @@ import { signinFunc } from '@/components/helpers/firebase/Auth';
 import {
   validateEmail,
   validatePassword,
-} from '@/components/helpers/validateForm';
+} from '@/components/helpers/validators/validateForm';
+import withAuthProtection from '@/components/helpers/validators/authChecker';
 
 const SignIn = () => {
-  const router = useRouter();
   const { resolvedTheme, setTheme } = useTheme();
 
   const [emailError, setEmailError] = useState(false);
@@ -61,8 +61,6 @@ const SignIn = () => {
       }
 
       console.log(result);
-
-      router.push('/');
     }
   };
 
@@ -170,4 +168,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default withAuthProtection(SignIn, false);

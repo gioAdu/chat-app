@@ -23,7 +23,7 @@ const MUIThemeProvider = ({ children }) => {
     <ThemeProvider theme={currentTheme}>
       <CssBaseline />
       <GlobalStyles styles={globalStyles} />
-       {isMounted && children} 
+      {isMounted && children}
     </ThemeProvider>
   );
 };

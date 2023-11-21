@@ -4,7 +4,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import PageProvider from '@/components/helpers/PageProvider';
+import PageProvider from '@/components/helpers/Themes/PageProvider';
 
 export default function App({ Component, pageProps }) {
   return (

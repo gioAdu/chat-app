@@ -1,13 +1,11 @@
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import firebase_app from './config';
+import { auth } from './config';
 
 export const signupFunc = async (email, password) => {
-  const auth = getAuth(firebase_app);
   let result = null,
     error = null;
 
@@ -22,7 +20,6 @@ export const signupFunc = async (email, password) => {
 };
 
 export const signinFunc = async (email, password) => {
-  const auth = getAuth(firebase_app);
   let result = null,
     error = null;
   try {
@@ -35,7 +32,6 @@ export const signinFunc = async (email, password) => {
 };
 
 export const logoutFunc = async () => {
-  const auth = getAuth(firebase_app);
   let result = null,
     error = null;
   try {

@@ -1,43 +1,8 @@
 import Layout from '@/components/Layout';
-import firebase_app from '@/components/helpers/firebase/config';
-import { Box, CircularProgress } from '@mui/material';
-import { getAuth } from 'firebase/auth';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import withAuthProtection from '@/components/helpers/validators/authChecker';
 
-export default function Home() {
-  const router = useRouter();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const auth = getAuth(firebase_app);
-
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        router.push('/auth/signin');
-      } else {
-        router.push('/');
-      }
-    });
-
-    setLoading(false);
-    return () => unsubscribe();
-  }, []);
-
-  if (loading) {
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-        }}
-      >
-        <CircularProgress size={100} color="secondary" />
-      </Box>
-    );
-  }
-
+const Home = () => {
   return <Layout />;
-}
+};
+
+export default withAuthProtection(Home, true);
