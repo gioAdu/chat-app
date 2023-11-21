@@ -1,5 +1,6 @@
 import {
   createUserWithEmailAndPassword,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
@@ -11,7 +12,11 @@ export const signupFunc = async (email, password) => {
 
   try {
     result = await createUserWithEmailAndPassword(auth, email, password);
-    console.log(result);
+    const user = auth.currentUser;
+    await sendEmailVerification(user, {
+      url: process.env.NEXT_PUBLIC_URL,
+      handleCodeInApp: true,
+    });
   } catch (e) {
     error = e;
   }

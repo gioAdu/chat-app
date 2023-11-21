@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Grid,
   IconButton,
@@ -21,6 +22,7 @@ import {
 } from '@/components/helpers/validators/validateForm';
 import { signupFunc } from '@/components/helpers/firebase/Auth';
 import withAuthProtection from '@/components/helpers/validators/authChecker';
+import { getErrorText } from '@/components/helpers/validators/fb-signup';
 
 const SignUp = () => {
   const { resolvedTheme, setTheme } = useTheme();
@@ -41,11 +43,13 @@ const SignUp = () => {
   const [repeatPasswordError, setRepeatPasswordError] = useState(false);
 
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleClick = async (e) => {
     e.preventDefault();
 
-    console.log('test');
+    setLoading(true);
+
     const nameError = validateName(name);
     const surnameError = validateSurname(surname);
     const emailError = validateEmail(email);
@@ -68,16 +72,20 @@ const SignUp = () => {
       passwordError ||
       repeatPasswordError
     ) {
+      setLoading(false);
       return;
     }
 
-    const { result, error } = await signupFunc(email, password);
+    const { error } = await signupFunc(email, password);
+
+    setLoading(false);
 
     if (error) {
-      return console.log(error);
+      console.log(error);
+      const errMsg = getErrorText(error.code);
+      setErrorMsg(errMsg);
+      return;
     }
-
-    console.log(result);
   };
 
   return (
@@ -189,12 +197,19 @@ const SignUp = () => {
               />
             </Grid>
           </Grid>
+          {errorMsg && (
+            <Typography
+              sx={{ paddingTop: 2, textAlign: 'center', color: 'error.main' }}
+            >
+              {errorMsg}
+            </Typography>
+          )}
           <Box sx={{ position: 'relative' }}>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ my:2 }}
               disabled={loading}
             >
               Sign Up

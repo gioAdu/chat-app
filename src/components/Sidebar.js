@@ -20,7 +20,8 @@ const SideBar = ({ setCurrentSection }) => {
     setCurrentSection(section);
   };
 
-  const handleLogout = async() => {
+  const handleLogout = async(e) => {
+    e.preventDefault()
    const logout = await  logoutFunc()
    console.log(logout);
   };
