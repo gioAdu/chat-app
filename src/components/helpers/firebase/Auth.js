@@ -4,7 +4,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { auth } from './config';
+import { auth, doc, setDoc } from './config';
+
 
 export const signupFunc = async (email, password) => {
   let result = null,
@@ -17,6 +18,9 @@ export const signupFunc = async (email, password) => {
       url: process.env.NEXT_PUBLIC_URL,
       handleCodeInApp: true,
     });
+
+    await setDoc(doc(auth, 'users', user.uid)), {}
+    
   } catch (e) {
     error = e;
   }
