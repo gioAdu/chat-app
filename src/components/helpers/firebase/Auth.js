@@ -4,10 +4,12 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { auth, doc, setDoc } from './config';
+import { auth } from './config';
+import { collection, getFirestore, setDoc, doc } from 'firebase/firestore';
 
+const db = getFirestore();
 
-export const signupFunc = async (email, password) => {
+export const signupFunc = async (email, password, fullName) => {
   let result = null,
     error = null;
 
@@ -19,8 +21,11 @@ export const signupFunc = async (email, password) => {
       handleCodeInApp: true,
     });
 
-    await setDoc(doc(auth, 'users', user.uid)), {}
-    
+    await setDoc(doc(db, 'Users', user.uid), {
+      email: user.email,
+      uid: user.uid,
+      displayName: fullName,
+    });
   } catch (e) {
     error = e;
   }
