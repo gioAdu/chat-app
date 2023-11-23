@@ -65,6 +65,7 @@ const SignUp = () => {
     const fullName = `${firstName} ${surname}`;
 
     const { error } = await signupFunc(email, password, fullName);
+    
     setLoading(false);
 
     if (error) {
