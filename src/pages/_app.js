@@ -5,19 +5,18 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import PageProvider from '@/components/helpers/Themes/PageProvider';
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }) {
-  const queryClient = new QueryClient();
-  
   return (
     <QueryClientProvider client={queryClient}>
-        <PageProvider>
-          <Component {...pageProps} />
-        </PageProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <PageProvider>
+        <Component {...pageProps} />
+      </PageProvider>
     </QueryClientProvider>
   );
 }

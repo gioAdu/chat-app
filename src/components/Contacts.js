@@ -9,6 +9,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import ContactCard from './UI/ContactCard';
 import UserSearchInput from './UserSearchInput';
+import { useState } from 'react';
 
 const TmpList = [
   {
@@ -28,6 +29,8 @@ const TmpList = [
 ];
 
 const Contacts = ({ setSelectedChat }) => {
+  const [chatPartner, setChatPartner] = useState([]);
+
   const handleClick = (id) => {
     setSelectedChat(id);
   };
@@ -44,7 +47,7 @@ const Contacts = ({ setSelectedChat }) => {
         Chats
       </Typography>
 
-      <UserSearchInput />
+      <UserSearchInput setChatPartner={setChatPartner}/>
 
       <Typography component="p" variant="h6" paddingTop={2}>
         Recent
@@ -69,7 +72,7 @@ const Contacts = ({ setSelectedChat }) => {
           paddingX: 2,
           paddingY: 1,
           borderRadius: 1,
-          marginTop: 1,
+          marginY: 1,
         }}
         placeholder="Search conversations"
         variant="standard"
