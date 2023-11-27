@@ -1,11 +1,10 @@
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import SideBar from './Sidebar';
 import Profile from './Profile';
 import Contacts from './Contacts';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ChatRoom from './ChatRoom';
-import withAuthProtection from './helpers/validators/authChecker';
 
 const Layout = () => {
   const router = useRouter();

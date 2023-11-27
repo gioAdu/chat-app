@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ContactCard from './UI/ContactCard';
-import { useRef } from 'react';
+import UserSearchInput from './UserSearchInput';
 
 const TmpList = [
   {
@@ -28,12 +28,6 @@ const TmpList = [
 ];
 
 const Contacts = ({ setSelectedChat }) => {
-  const inputRef = useRef();
-
-  const handleSearch = () => {
-    inputRef.current.focus();
-  };
-
   const handleClick = (id) => {
     setSelectedChat(id);
   };
@@ -50,11 +44,16 @@ const Contacts = ({ setSelectedChat }) => {
         Chats
       </Typography>
 
+      <UserSearchInput />
+
+      <Typography component="p" variant="h6" paddingTop={2}>
+        Recent
+      </Typography>
       <TextField
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon onClick={handleSearch} />
+              <SearchIcon />
             </InputAdornment>
           ),
           disableUnderline: true,
@@ -64,23 +63,20 @@ const Contacts = ({ setSelectedChat }) => {
             },
           },
         }}
-        fullWidth
         id="filled-basic"
         sx={{
           backgroundColor: 'lightBg.main',
           paddingX: 2,
           paddingY: 1,
           borderRadius: 1,
+          marginTop: 1,
         }}
-        placeholder="Search users"
+        placeholder="Search conversations"
         variant="standard"
         size="small"
-        inputRef={inputRef}
       />
-      <Typography component="p" variant="h6" paddingTop={2}>
-        Recent
-      </Typography>
-      <List sx={{paddingY:0}}>
+
+      <List sx={{ paddingY: 0 }}>
         {TmpList.map((item) => (
           <ListItemButton key={item.id} onClick={() => handleClick(item.id)}>
             <ContactCard item={item} />
