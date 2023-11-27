@@ -1,5 +1,7 @@
 import {
   Box,
+  CircularProgress,
+  Grid,
   InputAdornment,
   List,
   ListItemButton,
@@ -7,29 +9,48 @@ import {
   Typography,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import ContactCard from './UI/ContactCard';
+import ContactCard from './ContactCard';
 import UserSearchInput from './UserSearchInput';
-import { useState } from 'react';
-
-const TmpList = [
-  {
-    id: 1,
-    img: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=300&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    name: 'Some Rando',
-    lastMsg: 'Something',
-    timeStamp: '2:40PM',
-  },
-  {
-    id: 2,
-    img: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=300&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    name: 'Second Rando',
-    lastMsg: 'Something Else Entirely',
-    timeStamp: '2:40PM',
-  },
-];
+import { getAllUsers, getchatHistory } from '../API/api';
+import { useQuery } from '@tanstack/react-query';
+import { auth } from '../firebase/config';
 
 const Contacts = ({ setSelectedChat }) => {
-  const [chatPartner, setChatPartner] = useState([]);
+  const currentUser = auth.currentUser;
+  const {
+    data: chatHistory,
+    isLoading,
+    error,
+  } = useQuery({ queryKey: ['chatHistory'], queryFn: getchatHistory });
+
+  const {
+    data: users,
+    isLoading: usersIsLoading,
+    error: usersError,
+  } = useQuery({ queryKey: ['users'], queryFn: getAllUsers });
+
+  
+
+  console.log(users);
+
+  if (isLoading || usersIsLoading) {
+    return (
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+      >
+        <CircularProgress color="secondary" size={80} />
+      </Grid>
+    );
+  }
+
+  const partner = users.find(
+    (user) =>
+      user.uid ===
+      chatHistory[0].userUIDs.find((partner) => partner !== currentUser.uid)
+  );
 
   const handleClick = (id) => {
     setSelectedChat(id);
@@ -47,7 +68,7 @@ const Contacts = ({ setSelectedChat }) => {
         Chats
       </Typography>
 
-      <UserSearchInput setChatPartner={setChatPartner}/>
+      <UserSearchInput />
 
       <Typography component="p" variant="h6" paddingTop={2}>
         Recent
@@ -80,7 +101,7 @@ const Contacts = ({ setSelectedChat }) => {
       />
 
       <List sx={{ paddingY: 0 }}>
-        {TmpList.map((item) => (
+        {chatHistory.map((item) => (
           <ListItemButton key={item.id} onClick={() => handleClick(item.id)}>
             <ContactCard item={item} />
           </ListItemButton>

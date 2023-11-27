@@ -9,7 +9,7 @@ import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { logoutFunc } from './helpers/firebase/Auth';
+import { logoutFunc } from '../firebase/Auth';
 
 const SideBar = ({ setCurrentSection }) => {
   const { resolvedTheme, setTheme } = useTheme();
@@ -20,10 +20,10 @@ const SideBar = ({ setCurrentSection }) => {
     setCurrentSection(section);
   };
 
-  const handleLogout = async(e) => {
-    e.preventDefault()
-   const logout = await  logoutFunc()
-   console.log(logout);
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    const logout = await logoutFunc();
+    console.log(logout);
   };
 
   return (

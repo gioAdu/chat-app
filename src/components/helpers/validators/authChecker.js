@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { auth } from '../firebase/config';
+import { auth } from '../../firebase/config';
 import { Box, CircularProgress } from '@mui/material';
 
 function withAuthProtection(WrappedComponent, shouldBeAuthenticated) {

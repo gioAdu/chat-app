@@ -25,7 +25,7 @@ export const getAllUsers = async () => {
  * Retrieves the conversation data for the current user.
  * @returns {Promise<void>} A promise that resolves when the conversation data is retrieved.
  */
-export const getConversation = async () => {
+export const getchatHistory = async () => {
   const currentUser = auth.currentUser;
   const privateChatRef = collection(db, 'private chat');
 
@@ -39,14 +39,12 @@ export const getConversation = async () => {
   const conversations = [];
 
   querySnapshot.forEach((doc) => {
-    conversations.push(doc.data());
+    const data = doc.data();
+    data.id = doc.id;
+    conversations.push(data);
   });
 
-  console.log(conversations);
   return conversations;
 };
 
-
-export const addConversation = async (user2UID) => {
-
-}
+export const addConversation = async (user2UID, message) => {};

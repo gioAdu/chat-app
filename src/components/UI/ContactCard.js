@@ -2,6 +2,7 @@ import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import Image from 'next/image';
 
 const ContactCard = ({ item }) => {
+  const timeStamp = new Date(item.lastMsgTimeStamp).toLocaleTimeString()
   return (
     <Card
       sx={{
@@ -18,11 +19,11 @@ const ContactCard = ({ item }) => {
         sx={{ minWidth: 50, height: 50, borderRadius: 50, overflow: 'hidden' }}
       >
         <Image
-          src={item.img}
+          src={item.img || '/default_profile.png'}
           width={50}
           height={50}
           priority
-          alt="Your image alt text"
+          alt="profile"
         />
       </CardMedia>
       <CardContent sx={{ width: '100%' }}>
@@ -35,7 +36,7 @@ const ContactCard = ({ item }) => {
             color="text.secondary"
             component={'time'}
           >
-            {item.timeStamp}
+            {timeStamp}
           </Typography>
         </Box>
         <Typography
@@ -51,7 +52,7 @@ const ContactCard = ({ item }) => {
             WebkitBoxOrient: 'vertical',
           }}
         >
-          {item.lastMsg}
+          {item.lastMessage}
         </Typography>
       </CardContent>
     </Card>

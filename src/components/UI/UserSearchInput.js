@@ -1,9 +1,9 @@
 import { InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useQuery } from '@tanstack/react-query';
-import { getAllUsers, getConversation } from './helpers/API/api';
+import { getAllUsers } from '../API/api';
 
-const UserSearchInput = ({ setChatPartner }) => {
+const UserSearchInput = () => {
   const {
     data: users,
     isLoading,
@@ -15,7 +15,6 @@ const UserSearchInput = ({ setChatPartner }) => {
 
     if (searchValue.trim().length > 0) {
       users.filter((user) => user.displayName.includes(searchValue));
-      getConversation()
     }
   };
 

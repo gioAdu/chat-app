@@ -15,7 +15,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { signinFunc } from '@/components/helpers/firebase/Auth';
+import { signinFunc } from '@/components/firebase/Auth';
 import {
   validateEmail,
   validatePassword,

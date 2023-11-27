@@ -7,7 +7,7 @@ import {
   validateRepeatPassword,
   validateSurname,
 } from '@/components/helpers/validators/validateForm';
-import { signupFunc } from '@/components/helpers/firebase/Auth';
+import { signupFunc } from '@/components/firebase/Auth';
 import withAuthProtection from '@/components/helpers/validators/authChecker';
 import { getErrorText } from '@/components/helpers/validators/fb-signup';
 import SignupForm from '@/components/UI/signupForm';
@@ -65,7 +65,7 @@ const SignUp = () => {
     const fullName = `${firstName} ${surname}`;
 
     const { error } = await signupFunc(email, password, fullName);
-    
+
     setLoading(false);
 
     if (error) {
