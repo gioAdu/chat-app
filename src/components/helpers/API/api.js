@@ -9,6 +9,10 @@ import { auth } from '../firebase/config';
 
 const db = getFirestore();
 
+/**
+ * Retrieves all users from the database.
+ * @returns {Promise<Array<Object>>} A promise that resolves to an array of user objects.
+ */
 export const getAllUsers = async () => {
   const usersCollection = collection(db, 'Users');
   const userSnapshot = await getDocs(usersCollection);
@@ -17,6 +21,10 @@ export const getAllUsers = async () => {
   return usersList;
 };
 
+/**
+ * Retrieves the conversation data for the current user.
+ * @returns {Promise<void>} A promise that resolves when the conversation data is retrieved.
+ */
 export const getConversation = async () => {
   const currentUser = auth.currentUser;
   const privateChatRef = collection(db, 'private chat');
@@ -31,9 +39,14 @@ export const getConversation = async () => {
   const conversations = [];
 
   querySnapshot.forEach((doc) => {
-    console.log(doc.id, ' => ', doc.data());
     conversations.push(doc.data());
   });
 
   console.log(conversations);
+  return conversations;
 };
+
+
+export const addConversation = async (user2UID) => {
+
+}
