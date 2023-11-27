@@ -5,7 +5,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { auth } from './config';
-import { collection, getFirestore, setDoc, doc } from 'firebase/firestore';
+import {  getFirestore, setDoc, doc } from 'firebase/firestore';
 
 const db = getFirestore();
 
