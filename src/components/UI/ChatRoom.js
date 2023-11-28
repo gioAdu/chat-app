@@ -11,31 +11,43 @@ import {
 import Image from 'next/image';
 import { auth } from '../firebase/config';
 import { useQuery } from '@tanstack/react-query';
-import { getchatHistory } from '../API/api';
+import { getAllUsers, getchatHistory } from '../API/api';
 import { chatMessages } from './ChatMessageComponents';
 
 const ChatRoom = () => {
   const currentUser = auth.currentUser;
 
   const {
+    data: users,
+    isLoading: usersIsLoading,
+    error: usersError,
+  } = useQuery({ queryKey: ['users'], queryFn: getAllUsers });
+
+  const {
     data: chatHistory,
     isLoading,
     error,
   } = useQuery({ queryKey: ['chatHistory'], queryFn: getchatHistory });
-  
-  if (isLoading) {
+
+  if (isLoading || usersIsLoading) {
     return (
       <Grid
-      container
-      justifyContent="center"
-      alignItems="center"
-      height="100vh"
+        container
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
       >
         <CircularProgress color="secondary" size={80} />
       </Grid>
     );
   }
-  
+
+  const partner = users.find(
+    (user) =>
+      user.uid ===
+      chatHistory[0].userUIDs.find((partner) => partner !== currentUser.uid)
+  );
+
   return (
     <Grid
       container
@@ -71,7 +83,7 @@ const ChatRoom = () => {
           />
         </Box>
         <Typography fontWeight={'bold'} component={'h5'}>
-          User
+          {partner.displayName}
         </Typography>
       </Grid>
 

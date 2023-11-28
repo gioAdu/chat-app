@@ -5,9 +5,8 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import { auth } from '../firebase/config';
+import { auth, db } from '../firebase/config';
 
-const db = getFirestore();
 
 /**
  * Retrieves all users from the database.
@@ -17,7 +16,7 @@ export const getAllUsers = async () => {
   const usersCollection = collection(db, 'Users');
   const userSnapshot = await getDocs(usersCollection);
   const usersList = userSnapshot.docs.map((doc) => doc.data());
-
+  
   return usersList;
 };
 
@@ -43,7 +42,7 @@ export const getchatHistory = async () => {
     data.id = doc.id;
     conversations.push(data);
   });
-
+  console.log(conversations);
   return conversations;
 };
 

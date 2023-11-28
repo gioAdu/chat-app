@@ -4,10 +4,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { auth } from './config';
-import { getFirestore, setDoc, doc } from 'firebase/firestore';
-
-const db = getFirestore();
+import { auth, db } from './config';
+import {  setDoc, doc } from 'firebase/firestore';
 
 export const signupFunc = async (email, password, fullName) => {
   let result = null,

@@ -14,6 +14,7 @@ import UserSearchInput from './UserSearchInput';
 import { getAllUsers, getchatHistory } from '../API/api';
 import { useQuery } from '@tanstack/react-query';
 import { auth } from '../firebase/config';
+import { generateChatList } from './ChatMessageComponents';
 
 const Contacts = ({ setSelectedChat }) => {
   const currentUser = auth.currentUser;
@@ -29,10 +30,6 @@ const Contacts = ({ setSelectedChat }) => {
     error: usersError,
   } = useQuery({ queryKey: ['users'], queryFn: getAllUsers });
 
-  
-
-  console.log(users);
-
   if (isLoading || usersIsLoading) {
     return (
       <Grid
@@ -46,15 +43,11 @@ const Contacts = ({ setSelectedChat }) => {
     );
   }
 
-  const partner = users.find(
-    (user) =>
-      user.uid ===
-      chatHistory[0].userUIDs.find((partner) => partner !== currentUser.uid)
-  );
-
   const handleClick = (id) => {
     setSelectedChat(id);
   };
+
+  const chatList = generateChatList(chatHistory, users, handleClick);
 
   return (
     <Box>
@@ -100,13 +93,7 @@ const Contacts = ({ setSelectedChat }) => {
         size="small"
       />
 
-      <List sx={{ paddingY: 0 }}>
-        {chatHistory.map((item) => (
-          <ListItemButton key={item.id} onClick={() => handleClick(item.id)}>
-            <ContactCard item={item} />
-          </ListItemButton>
-        ))}
-      </List>
+      <List sx={{ paddingY: 0 }}>{chatList}</List>
     </Box>
   );
 };

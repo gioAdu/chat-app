@@ -1,8 +1,8 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import Image from 'next/image';
 
-const ContactCard = ({ item }) => {
-  const timeStamp = new Date(item.lastMsgTimeStamp).toLocaleTimeString()
+const ContactCard = ({ item, partner }) => {
+  const timeStamp = new Date(item.lastMsgTimeStamp).toLocaleTimeString();
   return (
     <Card
       sx={{
@@ -29,7 +29,7 @@ const ContactCard = ({ item }) => {
       <CardContent sx={{ width: '100%' }}>
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography variant="p" component="h4">
-            {item.name}
+            {partner.displayName}
           </Typography>
           <Typography
             variant="caption"

@@ -1,8 +1,11 @@
-import { Box, ListItem } from '@mui/material';
+import { Box, ListItem, ListItemButton } from '@mui/material';
 import { auth } from '../firebase/config';
 import Image from 'next/image';
+import ContactCard from './ContactCard';
 
-export const incomingMsg = (text, imgSrc,index) => (
+
+
+export const incomingMsg = (text, imgSrc, index) => (
   <ListItem key={index} sx={{ justifyContent: 'flex-start' }}>
     <Box display={'flex'} alignItems={'end'} gap={1}>
       <Box
@@ -13,7 +16,12 @@ export const incomingMsg = (text, imgSrc,index) => (
           overflow: 'hidden',
         }}
       >
-        <Image src={imgSrc || '/default_profile.png'} width={36} height={36} alt="profile" />
+        <Image
+          src={imgSrc || '/default_profile.png'}
+          width={36}
+          height={36}
+          alt="profile"
+        />
       </Box>
       <Box
         sx={{
@@ -40,7 +48,7 @@ export const incomingMsg = (text, imgSrc,index) => (
   </ListItem>
 );
 
-export const outGoingMsg = (text, imgSrc,index) => (
+export const outGoingMsg = (text, imgSrc, index) => (
   <ListItem key={index} sx={{ justifyContent: 'flex-end' }}>
     <Box display={'flex'} alignItems={'end'} gap={1}>
       <Box
@@ -72,7 +80,12 @@ export const outGoingMsg = (text, imgSrc,index) => (
           overflow: 'hidden',
         }}
       >
-        <Image src={imgSrc || '/default_profile.png'} width={36} height={36} alt="profile" />
+        <Image
+          src={imgSrc || '/default_profile.png'}
+          width={36}
+          height={36}
+          alt="profile"
+        />
       </Box>
     </Box>
   </ListItem>
@@ -80,11 +93,30 @@ export const outGoingMsg = (text, imgSrc,index) => (
 
 export const chatMessages = (chatHistory) => {
   const currentUser = auth.currentUser;
+
   return chatHistory[0].messages.map((item, index) => {
     if (currentUser.uid === item.senderUID) {
       return outGoingMsg(item.content, item.img, index);
     } else {
       return incomingMsg(item.content, item.img, index);
     }
+  });
+};
+
+export const generateChatList = (chatHistory, users, handleClick) => {
+  const currentUser = auth.currentUser;
+
+  return chatHistory.map((item) => {
+    const partner = users.find(
+      (user) =>
+        user.uid ===
+        item.userUIDs.find((partner) => partner !== currentUser.uid)
+    );
+
+    return (
+      <ListItemButton key={item.id} onClick={() => handleClick(item.id)}>
+        <ContactCard item={item} partner={partner} />
+      </ListItemButton>
+    );
   });
 };
