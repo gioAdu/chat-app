@@ -1,14 +1,16 @@
 import {
   arrayUnion,
   collection,
+  doc,
   getDoc,
   getDocs,
-  getFirestore,
+  onSnapshot,
   query,
   setDoc,
   where,
 } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
+import { useState, useEffect } from 'react';
 
 /**
  * Retrieves all users from the database.
@@ -23,10 +25,15 @@ export const getAllUsers = async () => {
 };
 
 /**
- * Retrieves the conversation data for the current user.
- * @returns {Promise<void>} A promise that resolves when the conversation data is retrieved.
+ * Custom hook to fetch chat history from Firestore.
+ * @returns {Object} An object containing the chat history and loading state.
+ * @property {Array.<Object>} chatHistory - The array of chat history.
+ * @property {boolean} isLoading - The loading state indicating if the chat history is being fetched.
  */
-export const getchatHistory = async () => {
+export const useChatHistory = () => {
+  const [chatHistory, setChatHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const currentUser = auth.currentUser;
   const privateChatRef = collection(db, 'private chat');
 
@@ -35,26 +42,45 @@ export const getchatHistory = async () => {
     where('userUIDs', 'array-contains', currentUser.uid)
   );
 
-  const querySnapshot = await getDocs(q);
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      q,
+      (querySnapshot) => {
+        const conversations = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          data.id = doc.id;
+          conversations.push(data);
+        });
+        setChatHistory(conversations);
+        setIsLoading(false);
+      },
+      (error) => {
+        console.log('Error getting document:', error);
+        setIsLoading(false);
+      }
+    );
 
-  const conversations = [];
+    // Cleanup function to unsubscribe when the component unmounts
+    return () => unsubscribe();
+  }, []); // Empty dependency array means this effect runs once on mount
 
-  querySnapshot.forEach((doc) => {
-    const data = doc.data();
-    data.id = doc.id;
-    conversations.push(data);
-  });
-  
-  return conversations;
+  return { chatHistory, isLoading };
 };
 
+/**
+ * Adds a conversation to the database.
+ * @param {string} user2UID - The UID of the second user in the conversation.
+ * @param {string} message - The message content to be added to the conversation.
+ * @returns {Promise<void>} - A promise that resolves when the conversation is added to the database.
+ */
 export const addConversation = async (user2UID, message) => {
   const currentUser = auth.currentUser;
 
   const sortedUIDs = [currentUser.uid, user2UID].sort();
   const conversationID = sortedUIDs.join('_');
 
-  const conversationRef = doc(db, 'private_chats', conversationID);
+  const conversationRef = doc(db, 'private chat', conversationID);
   const conversationSnap = await getDoc(conversationRef);
 
   if (conversationSnap.exists()) {
@@ -84,7 +110,7 @@ export const addConversation = async (user2UID, message) => {
           senderUID: currentUser.uid,
         },
       ],
-      senderUIDs: sortedUIDs,
+      userUIDs: sortedUIDs,
     });
   }
 };

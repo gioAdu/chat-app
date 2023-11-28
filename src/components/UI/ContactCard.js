@@ -29,7 +29,7 @@ const ContactCard = ({ item, partner }) => {
       <CardContent sx={{ width: '100%' }}>
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography variant="p" component="h4">
-            {partner.displayName}
+            {partner?.displayName || 'User'}
           </Typography>
           <Typography
             variant="caption"

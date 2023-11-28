@@ -3,7 +3,8 @@ export const getErrorText = (error) => {
     case 'auth/email-already-in-use':
       return 'The provided email is already in use by an existing user.';
     case 'auth/invalid-email':
-      return 'The email address you entered is invalid.';
+    case 'auth/invalid-login-credentials':
+      return 'The email or password you entered is invalid.';
     case 'auth/operation-not-allowed':
       return 'This operation is not allowed.';
     case 'auth/weak-password':

@@ -109,7 +109,7 @@ export const chatMessages = (chatHistory, partnerUID) => {
 
 export const generateChatList = (chatHistory, users, handleClick) => {
   const currentUser = auth.currentUser;
-
+  
   return chatHistory.map((item) => {
     const partner = users.find(
       (user) =>

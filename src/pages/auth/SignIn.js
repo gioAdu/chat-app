@@ -21,6 +21,7 @@ import {
   validatePassword,
 } from '@/components/helpers/validators/validateForm';
 import withAuthProtection from '@/components/helpers/validators/authChecker';
+import { getErrorText } from '@/components/helpers/validators/fb-signup';
 
 const SignIn = () => {
   const { resolvedTheme, setTheme } = useTheme();
@@ -52,11 +53,11 @@ const SignIn = () => {
       }
 
       const { result, error } = await signinFunc(email, password);
-
+      console.log(error);
       setLoading(false);
 
       if (error) {
-        setErrorMsg(error);
+        setErrorMsg(getErrorText(error.code));
         return;
       }
 

@@ -14,7 +14,9 @@ const UserSearchInput = () => {
     const searchValue = e.target.value;
 
     if (searchValue.trim().length > 0) {
-      users.filter((user) => user.displayName.includes(searchValue));
+     const filteredUsers =  users.filter((user) => user.displayName.includes(searchValue));
+     console.log(filteredUsers);
+     
     }
   };
 

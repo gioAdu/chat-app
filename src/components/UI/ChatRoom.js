@@ -9,25 +9,27 @@ import {
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
-import { auth } from '../firebase/config';
-import { useQuery } from '@tanstack/react-query';
-import { getAllUsers, getchatHistory } from '../API/api';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  addConversation,
+  getAllUsers,
+  getchatHistory,
+  useChatHistory,
+} from '../API/api';
 import { chatMessages } from './ChatMessageComponents';
+import { useRef } from 'react';
 
 const ChatRoom = ({ chatId }) => {
-  const currentUser = auth.currentUser;
+  const textRef = useRef(null);
+  const queryClient = useQueryClient();
+
+  const { chatHistory, isLoading } = useChatHistory();
 
   const {
     data: users,
     isLoading: usersIsLoading,
     error: usersError,
   } = useQuery({ queryKey: ['users'], queryFn: getAllUsers });
-
-  const {
-    data: chatHistory,
-    isLoading,
-    error,
-  } = useQuery({ queryKey: ['chatHistory'], queryFn: getchatHistory });
 
   if (isLoading || usersIsLoading) {
     return (
@@ -43,6 +45,20 @@ const ChatRoom = ({ chatId }) => {
   }
 
   const partner = users.find((user) => user.uid === chatId);
+
+  const handleClick = async () => {
+    const message = textRef.current.value;
+
+    if (message.trim() === '') return;
+
+    try {
+      await addConversation(message, chatId);
+      textRef.current.value = '';
+    } catch (error) {
+      // Handle the error here
+      console.error(error);
+    }
+  };
 
   return (
     <Grid
@@ -79,7 +95,7 @@ const ChatRoom = ({ chatId }) => {
           />
         </Box>
         <Typography fontWeight={'bold'} component={'h5'}>
-          {partner.displayName}
+          {partner?.displayName || 'User'}
         </Typography>
       </Grid>
 
@@ -98,6 +114,7 @@ const ChatRoom = ({ chatId }) => {
       >
         <TextField
           InputProps={{ disableUnderline: true }}
+          inputRef={textRef}
           fullWidth
           id="filled-basic"
           sx={{
@@ -110,6 +127,7 @@ const ChatRoom = ({ chatId }) => {
           variant="standard"
         />
         <IconButton
+          onClick={handleClick}
           sx={{
             padding: 1.5,
             backgroundColor: 'lightBg.indigo',

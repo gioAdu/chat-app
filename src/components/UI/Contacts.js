@@ -4,25 +4,17 @@ import {
   Grid,
   InputAdornment,
   List,
-  ListItemButton,
   TextField,
   Typography,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import ContactCard from './ContactCard';
 import UserSearchInput from './UserSearchInput';
-import { getAllUsers, getchatHistory } from '../API/api';
+import { getAllUsers, useChatHistory } from '../API/api';
 import { useQuery } from '@tanstack/react-query';
-import { auth } from '../firebase/config';
 import { generateChatList } from './ChatMessageComponents';
 
 const Contacts = ({ setSelectedChat }) => {
-  const currentUser = auth.currentUser;
-  const {
-    data: chatHistory,
-    isLoading,
-    error,
-  } = useQuery({ queryKey: ['chatHistory'], queryFn: getchatHistory });
+  const { chatHistory, isLoading } = useChatHistory();
 
   const {
     data: users,
