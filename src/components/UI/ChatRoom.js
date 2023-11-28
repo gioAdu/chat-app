@@ -14,7 +14,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getAllUsers, getchatHistory } from '../API/api';
 import { chatMessages } from './ChatMessageComponents';
 
-const ChatRoom = () => {
+const ChatRoom = ({ chatId }) => {
   const currentUser = auth.currentUser;
 
   const {
@@ -42,11 +42,7 @@ const ChatRoom = () => {
     );
   }
 
-  const partner = users.find(
-    (user) =>
-      user.uid ===
-      chatHistory[0].userUIDs.find((partner) => partner !== currentUser.uid)
-  );
+  const partner = users.find((user) => user.uid === chatId);
 
   return (
     <Grid
@@ -88,7 +84,7 @@ const ChatRoom = () => {
       </Grid>
 
       <Grid item xs style={{ flexGrow: 1, overflow: 'auto' }} p={2} pt={0}>
-        <List>{chatMessages(chatHistory)}</List>
+        <List>{chatMessages(chatHistory, partner.uid)}</List>
       </Grid>
 
       <Grid

@@ -3,8 +3,6 @@ import { auth } from '../firebase/config';
 import Image from 'next/image';
 import ContactCard from './ContactCard';
 
-
-
 export const incomingMsg = (text, imgSrc, index) => (
   <ListItem key={index} sx={{ justifyContent: 'flex-start' }}>
     <Box display={'flex'} alignItems={'end'} gap={1}>
@@ -91,15 +89,21 @@ export const outGoingMsg = (text, imgSrc, index) => (
   </ListItem>
 );
 
-export const chatMessages = (chatHistory) => {
+export const chatMessages = (chatHistory, partnerUID) => {
   const currentUser = auth.currentUser;
 
-  return chatHistory[0].messages.map((item, index) => {
-    if (currentUser.uid === item.senderUID) {
-      return outGoingMsg(item.content, item.img, index);
-    } else {
-      return incomingMsg(item.content, item.img, index);
+  return chatHistory.map((item, index) => {
+    if (!item.userUIDs.includes(partnerUID)) {
+      return null;
     }
+
+    return item.messages.map((message, messageIndex) => {
+      if (currentUser.uid === message.senderUID) {
+        return outGoingMsg(message.content, message.img, messageIndex);
+      } else {
+        return incomingMsg(message.content, message.img, messageIndex);
+      }
+    });
   });
 };
 
@@ -114,7 +118,7 @@ export const generateChatList = (chatHistory, users, handleClick) => {
     );
 
     return (
-      <ListItemButton key={item.id} onClick={() => handleClick(item.id)}>
+      <ListItemButton key={item.id} onClick={() => handleClick(partner.uid)}>
         <ContactCard item={item} partner={partner} />
       </ListItemButton>
     );
