@@ -1,3 +1,8 @@
+/**
+ * Returns the error message based on the provided error code.
+ * @param {string} error - The error code.
+ * @returns {string} - The corresponding error message.
+ */
 export const getErrorText = (error) => {
   switch (error) {
     case 'auth/email-already-in-use':

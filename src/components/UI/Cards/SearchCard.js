@@ -1,8 +1,7 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import Image from 'next/image';
 
-const ContactCard = ({ item, partner }) => {
-  const timeStamp = new Date(item.lastMsgTimeStamp).toLocaleTimeString();
+const SearchCard = ({ item }) => {
   return (
     <Card
       sx={{
@@ -29,34 +28,12 @@ const ContactCard = ({ item, partner }) => {
       <CardContent sx={{ width: '100%' }}>
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography variant="p" component="h4">
-            {partner?.displayName || 'User'}
-          </Typography>
-          <Typography
-            variant="caption"
-            color="text.secondary"
-            component={'time'}
-          >
-            {timeStamp}
+            {item.displayName}
           </Typography>
         </Box>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{
-            overflow: 'hidden',
-            wordWrap: 'break-word',
-            wordBreak: 'break-all',
-            textOverflow: 'ellipsis',
-            display: '-webkit-box',
-            WebkitLineClamp: 1,
-            WebkitBoxOrient: 'vertical',
-          }}
-        >
-          {item.lastMessage}
-        </Typography>
       </CardContent>
     </Card>
   );
 };
 
-export default ContactCard;
+export default SearchCard;

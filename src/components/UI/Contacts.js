@@ -12,9 +12,11 @@ import UserSearchInput from './UserSearchInput';
 import { getAllUsers, useChatHistory } from '../API/api';
 import { useQuery } from '@tanstack/react-query';
 import { generateChatList } from './ChatMessageComponents';
+import { useState } from 'react';
 
 const Contacts = ({ setSelectedChat }) => {
   const { chatHistory, isLoading } = useChatHistory();
+  const [filterHistory, setFilterHistory] = useState('');
 
   const {
     data: users,
@@ -39,7 +41,12 @@ const Contacts = ({ setSelectedChat }) => {
     setSelectedChat(id);
   };
 
-  const chatList = generateChatList(chatHistory, users, handleClick);
+  const chatList = generateChatList(
+    chatHistory,
+    users,
+    handleClick,
+    filterHistory
+  );
 
   return (
     <Box>
@@ -53,12 +60,13 @@ const Contacts = ({ setSelectedChat }) => {
         Chats
       </Typography>
 
-      <UserSearchInput />
+      <UserSearchInput getUserId={handleClick} />
 
       <Typography component="p" variant="h6" paddingTop={2}>
         Recent
       </Typography>
       <TextField
+        onChange={(e) => setFilterHistory(e.target.value)}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

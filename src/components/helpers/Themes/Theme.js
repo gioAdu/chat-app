@@ -9,6 +9,7 @@ export const lightTheme = createTheme({
       light_2: '#fff',
       dark: '#fff',
       indigo: '#7269ef',
+      lavender: '#D1D1F6',
     },
   },
 });
@@ -22,6 +23,7 @@ export const darkTheme = createTheme({
       main: '#36404a',
       dark: '#262e35',
       indigo: '#7269ef',
+      lavender: '#734f96',
     },
   },
 });

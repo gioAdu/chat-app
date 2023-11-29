@@ -1,8 +1,16 @@
 import { Box, ListItem, ListItemButton } from '@mui/material';
 import { auth } from '../firebase/config';
 import Image from 'next/image';
-import ContactCard from './ContactCard';
+import ContactCard from './Cards/ContactCard';
 
+/**
+ * Renders an incoming chat message component.
+ *
+ * @param {string} text - The text content of the message.
+ * @param {string} imgSrc - The source URL of the profile image.
+ * @param {number} index - The index of the message in the list.
+ * @returns {React.Element} The rendered incoming chat message component.
+ */
 export const incomingMsg = (text, imgSrc, index) => (
   <ListItem key={index} sx={{ justifyContent: 'flex-start' }}>
     <Box display={'flex'} alignItems={'end'} gap={1}>
@@ -46,6 +54,14 @@ export const incomingMsg = (text, imgSrc, index) => (
   </ListItem>
 );
 
+/**
+ * Renders an outgoing chat message component.
+ *
+ * @param {string} text - The text content of the message.
+ * @param {string} imgSrc - The image source URL for the profile picture.
+ * @param {number} index - The unique index of the message.
+ * @returns {React.Element} - The outgoing chat message component.
+ */
 export const outGoingMsg = (text, imgSrc, index) => (
   <ListItem key={index} sx={{ justifyContent: 'flex-end' }}>
     <Box display={'flex'} alignItems={'end'} gap={1}>
@@ -89,10 +105,17 @@ export const outGoingMsg = (text, imgSrc, index) => (
   </ListItem>
 );
 
+/**
+ * Generates an array of either outgoing or incoming messages, or null, depending on who sent the message.
+ * based on the chat history and partner UID.
+ * @param {Array} chatHistory - The chat history array.
+ * @param {string} partnerUID - The UID of the chat partner.
+ * @returns {Array} - An array of chat messages.
+ */
 export const chatMessages = (chatHistory, partnerUID) => {
   const currentUser = auth.currentUser;
 
-  return chatHistory.map((item, index) => {
+  return chatHistory.map((item) => {
     if (!item.userUIDs.includes(partnerUID)) {
       return null;
     }
@@ -107,10 +130,38 @@ export const chatMessages = (chatHistory, partnerUID) => {
   });
 };
 
-export const generateChatList = (chatHistory, users, handleClick) => {
+/**
+ * Generates a chat list based on the provided chat history, users, and search term.
+ * @param {Array} chatHistory - The array of chat history objects.
+ * @param {Array} users - The array of user objects.
+ * @param {Function} handleClick - The function to handle click events.
+ * @param {string} [searchTerm=''] - The optional search term to filter the chat history.
+ * @returns {Array} - The array of chat list components.
+ */
+export const generateChatList = (
+  chatHistory,
+  users,
+  handleClick,
+  searchTerm = ''
+) => {
   const currentUser = auth.currentUser;
-  
-  return chatHistory.map((item) => {
+  const active = localStorage.getItem('chat');
+  let filteredChatHistory = chatHistory;
+
+  if (searchTerm) {
+    filteredChatHistory = chatHistory.filter((item) => {
+      const partner = users.find(
+        (user) =>
+          user.uid ===
+          item.userUIDs.find((partner) => partner !== currentUser.uid)
+      );
+      return partner.displayName
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+    });
+  }
+
+  return filteredChatHistory.map((item) => {
     const partner = users.find(
       (user) =>
         user.uid ===
@@ -118,7 +169,14 @@ export const generateChatList = (chatHistory, users, handleClick) => {
     );
 
     return (
-      <ListItemButton key={item.id} onClick={() => handleClick(partner.uid)}>
+      <ListItemButton
+        key={item.id}
+        onClick={() => handleClick(partner.uid)}
+        sx={{
+          backgroundColor:
+            active === partner.uid ? 'lightBg.lavender' : 'inherit',
+        }}
+      >
         <ContactCard item={item} partner={partner} />
       </ListItemButton>
     );

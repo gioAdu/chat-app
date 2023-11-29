@@ -68,13 +68,16 @@ export const useChatHistory = () => {
   return { chatHistory, isLoading };
 };
 
+
 /**
  * Adds a conversation to the database.
+ * If the conversation already exists, appends a message to the existing conversation.
+ * If the conversation doesn't exist, creates a new conversation.
  * @param {string} user2UID - The UID of the second user in the conversation.
- * @param {string} message - The message content to be added to the conversation.
- * @returns {Promise<void>} - A promise that resolves when the conversation is added to the database.
+ * @param {string|null} message - The message to be added to the conversation. If null, no message will be added.
+ * @returns {Promise<void>} - A promise that resolves when the conversation is added or updated.
  */
-export const addConversation = async (user2UID, message) => {
+export const addConversation = async (user2UID, message = null) => {
   const currentUser = auth.currentUser;
 
   const sortedUIDs = [currentUser.uid, user2UID].sort();
@@ -84,33 +87,43 @@ export const addConversation = async (user2UID, message) => {
   const conversationSnap = await getDoc(conversationRef);
 
   if (conversationSnap.exists()) {
-    // If the conversation exists, append the message to the messages array
-    await setDoc(
-      conversationRef,
-      {
-        messages: arrayUnion({
-          content: message,
-          timeStamp: Date.now(),
-          senderUID: currentUser.uid,
-        }),
-        lastMessage: message,
-        lastMsgTimeStamp: Date.now(),
-      },
-      { merge: true }
-    );
+    // If the conversation exists
+    if (message) {
+      // If a message is provided, append the message to the messages array
+      console.log('message exists');
+
+      await setDoc(
+        conversationRef,
+        {
+          messages: arrayUnion({
+            content: message,
+            timeStamp: Date.now(),
+            senderUID: currentUser.uid,
+          }),
+          lastMessage: message,
+          lastMsgTimeStamp: Date.now(),
+        },
+        { merge: true }
+      );
+    }
+    // If no message is provided, do nothing
   } else {
     // If the conversation doesn't exist, create a new one
-    await setDoc(conversationRef, {
-      lastMessage: message,
-      lastMsgTimeStamp: Date.now(),
-      messages: [
-        {
-          content: message,
-          timeStamp: Date.now(),
-          senderUID: currentUser.uid,
-        },
-      ],
+    const newConversationData = {
       userUIDs: sortedUIDs,
-    });
+      messages: [],
+      lastMessage: null,
+      lastMsgTimeStamp: null,
+    };
+    if (message) {
+      newConversationData.messages.push({
+        content: message,
+        timeStamp: Date.now(),
+        senderUID: currentUser.uid,
+      });
+      newConversationData.lastMessage = message;
+      newConversationData.lastMsgTimeStamp = Date.now();
+    }
+    await setDoc(conversationRef, newConversationData);
   }
 };

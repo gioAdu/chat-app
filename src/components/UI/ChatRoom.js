@@ -52,7 +52,7 @@ const ChatRoom = ({ chatId }) => {
     if (message.trim() === '') return;
 
     try {
-      await addConversation(message, chatId);
+      await addConversation(chatId, message);
       textRef.current.value = '';
     } catch (error) {
       // Handle the error here
@@ -117,6 +117,11 @@ const ChatRoom = ({ chatId }) => {
           inputRef={textRef}
           fullWidth
           id="filled-basic"
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              handleClick();
+            }
+          }}
           sx={{
             backgroundColor: 'lightBg.main',
             paddingX: 2,
