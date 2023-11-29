@@ -10,9 +10,7 @@ const MUIThemeProvider = ({ children }) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    resolvedTheme === 'light'
-      ? setCurrentTheme(lightTheme)
-      : setCurrentTheme(darkTheme);
+    resolvedTheme === 'light' ? setCurrentTheme(lightTheme) : setCurrentTheme(darkTheme);
   }, [resolvedTheme]);
 
   useEffect(() => {

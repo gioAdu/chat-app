@@ -67,9 +67,7 @@ const SignIn = () => {
       </Typography>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <IconButton
-          aria-label={`switch to ${
-            resolvedTheme === 'light' ? 'dark' : 'light'
-          } mode`}
+          aria-label={`switch to ${resolvedTheme === 'light' ? 'dark' : 'light'} mode`}
           onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
         >
           {resolvedTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}

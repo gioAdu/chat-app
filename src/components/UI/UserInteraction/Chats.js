@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-import UserSearchInput from './UserSearchInput';
-import { getAllUsers, useChatHistory } from '../API/api';
+import UserSearchInput from '../UserSearchInput';
+import { getAllUsers, useChatHistory } from '../../API/api';
 import { useQuery } from '@tanstack/react-query';
-import { generateChatList } from './ChatMessageComponents';
+import { generateChatList } from '../../helpers/UIHelper/ChatMessageComponents';
 
 import { useState } from 'react';
 
@@ -28,12 +28,7 @@ const Chats = ({ setSelectedChat }) => {
 
   if (isLoading || usersIsLoading) {
     return (
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        height="100vh"
-      >
+      <Grid container justifyContent="center" alignItems="center" height="100dvh">
         <CircularProgress color="secondary" size={80} />
       </Grid>
     );
@@ -43,12 +38,7 @@ const Chats = ({ setSelectedChat }) => {
     setSelectedChat(id);
   };
 
-  const chatList = generateChatList(
-    chatHistory,
-    users,
-    handleClick,
-    filterHistory
-  );
+  const chatList = generateChatList(chatHistory, users, handleClick, filterHistory);
 
   return (
     <Box
@@ -57,7 +47,7 @@ const Chats = ({ setSelectedChat }) => {
         flexDirection: 'column',
         boxShadow: '0 2px 4px rgba(15,34,58,.12)',
         bgcolor: 'lightBg.light',
-        height: '100vh',
+        height: '100dvh',
       }}
     >
       <Typography
@@ -73,12 +63,7 @@ const Chats = ({ setSelectedChat }) => {
       <Box paddingX={3}>
         <UserSearchInput getUserId={handleClick} />
 
-        <Typography
-          fontWeight={'medium'}
-          component="h2"
-          variant="h5"
-          paddingTop={2}
-        >
+        <Typography fontWeight={'medium'} component="h2" variant="h5" paddingTop={2}>
           Recent Conversations
         </Typography>
 

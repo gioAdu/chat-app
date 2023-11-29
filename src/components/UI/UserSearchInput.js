@@ -16,8 +16,8 @@ import { useState } from 'react';
 import SearchCard from './Cards/SearchCard';
 import { auth } from '../firebase/config';
 
-const UserSearchInput = ({getUserId}) => {
-  const currentUser = auth.currentUser
+const UserSearchInput = ({ getUserId }) => {
+  const currentUser = auth.currentUser;
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -31,12 +31,7 @@ const UserSearchInput = ({getUserId}) => {
 
   if (isLoading) {
     return (
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        height="100vh"
-      >
+      <Grid container justifyContent="center" alignItems="center" height="100dvh">
         <CircularProgress color="secondary" size={80} />
       </Grid>
     );
@@ -46,8 +41,8 @@ const UserSearchInput = ({getUserId}) => {
     const searchValue = e.target.value;
 
     if (searchValue.trim().length > 0) {
-      const tmpFilteredList = users.filter((user) =>
-        user.displayName.includes(searchValue) && user.uid !== currentUser.uid
+      const tmpFilteredList = users.filter(
+        (user) => user.displayName.includes(searchValue) && user.uid !== currentUser.uid
       );
 
       setFilteredUsers(tmpFilteredList);
@@ -125,10 +120,7 @@ const UserSearchInput = ({getUserId}) => {
           <Box sx={{ backgroundColor: 'lightBg.main', padding: '0!important' }}>
             <List>
               {filteredUsers.map((user) => (
-                <ListItemButton
-                  key={user.uid}
-                  onClick={() => handleSelect(user.uid)}
-                >
+                <ListItemButton key={user.uid} onClick={() => handleSelect(user.uid)}>
                   <SearchCard item={user} />
                 </ListItemButton>
               ))}

@@ -58,9 +58,7 @@ const SigninForm = ({
           autoComplete="current-password"
         />
         {errorMsg && (
-          <Typography
-            sx={{ paddingTop: 1, textAlign: 'center', color: 'error.main' }}
-          >
+          <Typography sx={{ paddingTop: 1, textAlign: 'center', color: 'error.main' }}>
             {errorMsg}
           </Typography>
         )}
@@ -91,9 +89,7 @@ const SigninForm = ({
       <Grid container>
         <Grid item xs>
           <Link href="/auth/recover">
-            <Typography sx={{ color: 'primary.main' }}>
-              Forgot password?
-            </Typography>
+            <Typography sx={{ color: 'primary.main' }}>Forgot password?</Typography>
           </Link>
         </Grid>
         <Grid item>

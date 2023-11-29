@@ -1,27 +1,27 @@
 import { Send } from '@mui/icons-material';
-import {
-  Box,
-  CircularProgress,
-  Grid,
-  IconButton,
-  List,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, CircularProgress, Grid, IconButton, List, TextField, Typography } from '@mui/material';
 import Image from 'next/image';
-import {  useQuery } from '@tanstack/react-query';
-import {
-  addConversation,
-  getAllUsers,
-  useChatHistory,
-} from '../API/api';
-import { chatMessages } from './ChatMessageComponents';
-import { useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { addConversation, getAllUsers, useChatHistory } from '../../API/api';
+import { chatMessages } from '../../helpers/UIHelper/ChatMessageComponents';
+import { useEffect, useRef } from 'react';
 
 const ChatRoom = ({ chatId }) => {
   const textRef = useRef(null);
- 
+  const lastChatMessageRef = useRef(null);
+
+  const scrollToBottom = (ref) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const { chatHistory, isLoading } = useChatHistory();
+
+  useEffect(() => {
+    if (lastChatMessageRef.current) {
+      console.log('test');
+      lastChatMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [chatHistory, chatId]);
 
   const {
     data: users,
@@ -31,12 +31,7 @@ const ChatRoom = ({ chatId }) => {
 
   if (isLoading || usersIsLoading) {
     return (
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        height="100vh"
-      >
+      <Grid container justifyContent="center" alignItems="center" height="100dvh">
         <CircularProgress color="secondary" size={80} />
       </Grid>
     );
@@ -64,7 +59,7 @@ const ChatRoom = ({ chatId }) => {
       direction={'column'}
       boxShadow={'0 2px 4px rgba(15,34,58,.12)'}
       bgcolor={'lightBg.dark'}
-      height={'100vh'}
+      height={'100dvh'}
     >
       <Grid
         p={2}
@@ -85,12 +80,7 @@ const ChatRoom = ({ chatId }) => {
             overflow: 'hidden',
           }}
         >
-          <Image
-            src={'/default_profile.png'}
-            width={50}
-            height={50}
-            alt="profile"
-          />
+          <Image src={'/default_profile.png'} width={50} height={50} alt="profile" />
         </Box>
         <Typography fontWeight={'bold'} component={'h5'}>
           {partner?.displayName || 'User'}
@@ -98,7 +88,7 @@ const ChatRoom = ({ chatId }) => {
       </Grid>
 
       <Grid item xs style={{ flexGrow: 1, overflow: 'auto' }} p={2} pt={0}>
-        <List>{chatMessages(chatHistory, partner.uid)}</List>
+        <List>{chatMessages(chatHistory, partner.uid, lastChatMessageRef, scrollToBottom)}</List>
       </Grid>
 
       <Grid

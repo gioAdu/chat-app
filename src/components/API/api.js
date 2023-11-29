@@ -37,10 +37,7 @@ export const useChatHistory = () => {
   const currentUser = auth.currentUser;
   const privateChatRef = collection(db, 'private chat');
 
-  const q = query(
-    privateChatRef,
-    where('userUIDs', 'array-contains', currentUser.uid)
-  );
+  const q = query(privateChatRef, where('userUIDs', 'array-contains', currentUser.uid));
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -67,7 +64,6 @@ export const useChatHistory = () => {
 
   return { chatHistory, isLoading };
 };
-
 
 /**
  * Adds a conversation to the database.

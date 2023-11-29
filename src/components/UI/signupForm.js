@@ -48,9 +48,7 @@ const SignupForm = ({
       </Typography>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <IconButton
-          aria-label={`switch to ${
-            resolvedTheme === 'light' ? 'dark' : 'light'
-          } mode`}
+          aria-label={`switch to ${resolvedTheme === 'light' ? 'dark' : 'light'} mode`}
           onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
         >
           {resolvedTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
@@ -98,9 +96,7 @@ const SignupForm = ({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               error={emailError}
-              helperText={
-                emailError ? 'Please enter a valid email address' : ''
-              }
+              helperText={emailError ? 'Please enter a valid email address' : ''}
             />
           </Grid>
           <Grid item xs={12}>
@@ -116,9 +112,7 @@ const SignupForm = ({
               onChange={(e) => setPassword(e.target.value)}
               error={passwordError}
               helperText={
-                passwordError
-                  ? 'Password should be at least 8 characters long'
-                  : ''
+                passwordError ? 'Password should be at least 8 characters long' : ''
               }
             />
           </Grid>
@@ -139,9 +133,7 @@ const SignupForm = ({
           </Grid>
         </Grid>
         {errorMsg && (
-          <Typography
-            sx={{ paddingTop: 2, textAlign: 'center', color: 'error.main' }}
-          >
+          <Typography sx={{ paddingTop: 2, textAlign: 'center', color: 'error.main' }}>
             {errorMsg}
           </Typography>
         )}

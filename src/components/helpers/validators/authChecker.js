@@ -5,7 +5,7 @@ import { Box, CircularProgress } from '@mui/material';
 
 /**
  * A higher-order function that adds authentication protection to a component.
- * 
+ *
  * @param {React.Component} WrappedComponent - The component to be protected.
  * @param {boolean} shouldBeAuthenticated - Indicates whether the component should be accessible only to authenticated users.
  * @returns {React.Component} - The protected component.
@@ -33,7 +33,7 @@ function withAuthProtection(WrappedComponent, shouldBeAuthenticated) {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            height: '100vh',
+            height: '100dvh',
           }}
         >
           <CircularProgress size={100} color="secondary" />

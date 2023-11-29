@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import SideBar from './Sidebar';
+import SideBar from '../Sidebar';
 import Profile from './Profile';
 import Chats from './Chats';
 import { useRouter } from 'next/router';
@@ -61,18 +61,13 @@ const Layout = () => {
   }, [currentSection]);
 
   return (
-    <Grid container height={'100vh'}>
+    <Grid container height={'100dvh'}>
       <Grid item>
-        <SideBar
-          currentSection={currentSection}
-          setCurrentSection={setCurrentSection}
-        />
+        <SideBar currentSection={currentSection} setCurrentSection={setCurrentSection} />
       </Grid>
       <Grid item xs={3}>
         {currentSection === 'profile' && <Profile />}
-        {currentSection === 'Chats' && (
-          <Chats setSelectedChat={setSelectedChat} />
-        )}
+        {currentSection === 'Chats' && <Chats setSelectedChat={setSelectedChat} />}
       </Grid>
       <Grid item xs>
         {selectedChat && <ChatRoom chatId={selectedChat} />}

@@ -1,10 +1,4 @@
-import {
-  Box,
-  List,
-  ListItemButton,
-  ListItemText,
-  IconButton,
-} from '@mui/material';
+import { Box, List, ListItemButton, ListItemText, IconButton } from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -35,7 +29,7 @@ const SideBar = ({ setCurrentSection }) => {
     <List
       component="nav"
       sx={{
-        height: '100vh',
+        height: '100dvh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -64,9 +58,7 @@ const SideBar = ({ setCurrentSection }) => {
       <Box>
         <IconButton
           sx={{ width: '100%', borderRadius: 0 }}
-          aria-label={`switch to ${
-            resolvedTheme === 'light' ? 'dark' : 'light'
-          } mode`}
+          aria-label={`switch to ${resolvedTheme === 'light' ? 'dark' : 'light'} mode`}
           onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
         >
           {resolvedTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}

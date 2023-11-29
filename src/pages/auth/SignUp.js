@@ -47,10 +47,7 @@ const SignUp = () => {
     const surnameError = validateSurname(surname);
     const emailError = validateEmail(email);
     const passwordError = validatePassword(password);
-    const repeatPasswordError = validateRepeatPassword(
-      password,
-      repeatPassword
-    );
+    const repeatPasswordError = validateRepeatPassword(password, repeatPassword);
 
     setFirstNameError(firstNameError);
     setSurnameError(surnameError);
@@ -58,13 +55,7 @@ const SignUp = () => {
     setPasswordError(passwordError);
     setRepeatPasswordError(repeatPasswordError);
 
-    if (
-      nameError ||
-      surnameError ||
-      emailError ||
-      passwordError ||
-      repeatPasswordError
-    ) {
+    if (nameError || surnameError || emailError || passwordError || repeatPasswordError) {
       setLoading(false);
       return;
     }
