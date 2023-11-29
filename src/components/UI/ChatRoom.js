@@ -13,12 +13,10 @@ import {  useQuery } from '@tanstack/react-query';
 import {
   addConversation,
   getAllUsers,
-  getchatHistory,
   useChatHistory,
 } from '../API/api';
 import { chatMessages } from './ChatMessageComponents';
 import { useRef } from 'react';
-import { usePageHead } from '@/Context/HeadContext';
 
 const ChatRoom = ({ chatId }) => {
   const textRef = useRef(null);
