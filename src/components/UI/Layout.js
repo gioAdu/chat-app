@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import SideBar from './Sidebar';
 import Profile from './Profile';
-import Contacts from './Contacts';
+import Chats from './Chats';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ChatRoom from './ChatRoom';
@@ -21,7 +21,7 @@ const Layout = () => {
       const sectionFromStorage = localStorage.getItem('section');
       const chatFromStorage = localStorage.getItem('chat');
 
-      setCurrentSection(sectionFromURL || sectionFromStorage || 'contacts');
+      setCurrentSection(sectionFromURL || sectionFromStorage || 'Chats');
       setSelectedChat(chatFromURL || chatFromStorage || null);
     }
   }, [router.isReady]);
@@ -29,8 +29,8 @@ const Layout = () => {
   // Update state in local storage whenever it changes
   useEffect(() => {
     if (currentSection !== undefined) {
-      if (currentSection !== 'contacts' && currentSection !== 'profile') {
-        router.push('/?section=contacts');
+      if (currentSection !== 'Chats' && currentSection !== 'profile') {
+        router.push('/?section=Chats');
       } else if (selectedChat) {
         localStorage.setItem('chat', selectedChat);
         localStorage.setItem('section', currentSection);
@@ -49,10 +49,10 @@ const Layout = () => {
   }, [currentSection, selectedChat]);
 
   useEffect(() => {
-    if (currentSection === 'contacts') {
-      setTitle('Contacts');
+    if (currentSection === 'Chats') {
+      setTitle('Chats');
       setDescription(
-        'Discover your network on the Contacts page. View your chat history, keep up with ongoing conversations, or start new ones. Use the search feature to find and connect with other users. Your next conversation is just a click away!'
+        'Discover your network on the Chats page. View your chat history, keep up with ongoing conversations, or start new ones. Use the search feature to find and connect with other users. Your next conversation is just a click away!'
       );
     } else if (currentSection === 'profile') {
       setTitle('Profile');
@@ -70,8 +70,8 @@ const Layout = () => {
       </Grid>
       <Grid item xs={3}>
         {currentSection === 'profile' && <Profile />}
-        {currentSection === 'contacts' && (
-          <Contacts setSelectedChat={setSelectedChat} />
+        {currentSection === 'Chats' && (
+          <Chats setSelectedChat={setSelectedChat} />
         )}
       </Grid>
       <Grid item xs>

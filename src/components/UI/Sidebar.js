@@ -5,10 +5,15 @@ import {
   ListItemText,
   IconButton,
 } from '@mui/material';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import ChatIcon from '@mui/icons-material/Chat';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+
+import { useTheme } from 'next-themes';
+
+import Link from 'next/link';
+
 import { logoutFunc } from '../firebase/Auth';
 
 const SideBar = ({ setCurrentSection }) => {
@@ -39,12 +44,20 @@ const SideBar = ({ setCurrentSection }) => {
       }}
     >
       <Box>
-        <ListItemButton onClick={handleClick('profile')}>
+        <ListItemButton
+          onClick={handleClick('profile')}
+          sx={{ display: 'flex', flexDirection: 'column' }}
+        >
+          <ManageAccountsIcon color="action" />
           <ListItemText primary="Profile" />
         </ListItemButton>
 
-        <ListItemButton onClick={handleClick('contacts')}>
-          <ListItemText primary="contacts" />
+        <ListItemButton
+          onClick={handleClick('Chats')}
+          sx={{ display: 'flex', flexDirection: 'column' }}
+        >
+          <ChatIcon color="action" />
+          <ListItemText primary="Chats" />
         </ListItemButton>
       </Box>
 

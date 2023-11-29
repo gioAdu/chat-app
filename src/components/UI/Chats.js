@@ -8,13 +8,15 @@ import {
   Typography,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+
 import UserSearchInput from './UserSearchInput';
 import { getAllUsers, useChatHistory } from '../API/api';
 import { useQuery } from '@tanstack/react-query';
 import { generateChatList } from './ChatMessageComponents';
+
 import { useState } from 'react';
 
-const Contacts = ({ setSelectedChat }) => {
+const Chats = ({ setSelectedChat }) => {
   const { chatHistory, isLoading } = useChatHistory();
   const [filterHistory, setFilterHistory] = useState('');
 
@@ -116,4 +118,4 @@ const Contacts = ({ setSelectedChat }) => {
   );
 };
 
-export default Contacts;
+export default Chats;
