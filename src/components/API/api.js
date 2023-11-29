@@ -90,8 +90,6 @@ export const addConversation = async (user2UID, message = null) => {
     // If the conversation exists
     if (message) {
       // If a message is provided, append the message to the messages array
-      console.log('message exists');
-
       await setDoc(
         conversationRef,
         {

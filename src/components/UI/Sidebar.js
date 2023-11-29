@@ -24,7 +24,6 @@ const SideBar = ({ setCurrentSection }) => {
     e.preventDefault();
     const logout = await logoutFunc();
     localStorage.removeItem('chat');
-    console.log(logout);
   };
 
   return (

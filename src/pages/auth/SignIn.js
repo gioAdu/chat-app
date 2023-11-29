@@ -53,15 +53,12 @@ const SignIn = () => {
       }
 
       const { result, error } = await signinFunc(email, password);
-      console.log(error);
       setLoading(false);
 
       if (error) {
         setErrorMsg(getErrorText(error.code));
         return;
       }
-
-      console.log(result);
     }
   };
 

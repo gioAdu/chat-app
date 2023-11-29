@@ -18,10 +18,8 @@ function withAuthProtection(WrappedComponent, shouldBeAuthenticated) {
     useEffect(() => {
       return auth.onAuthStateChanged((user) => {
         if (shouldBeAuthenticated && !user) {
-          console.log('user is logged out');
           return router.push('/auth/signin');
         } else if (!shouldBeAuthenticated && user) {
-          console.log('user is logged in');
           return router.push('/');
         }
         setLoading(false);
