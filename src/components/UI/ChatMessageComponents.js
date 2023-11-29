@@ -179,6 +179,7 @@ export const generateChatList = (
         key={item.id}
         onClick={() => handleClick(partner.uid)}
         sx={{
+          borderRadius: 1,
           backgroundColor: bgColor,
           '&:hover': {
             backgroundColor: bgColor,

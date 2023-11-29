@@ -49,51 +49,69 @@ const Contacts = ({ setSelectedChat }) => {
   );
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        boxShadow: '0 2px 4px rgba(15,34,58,.12)',
+        bgcolor: 'lightBg.light',
+        height: '100vh',
+      }}
+    >
       <Typography
-        paddingTop={2}
+        paddingX={3}
+        paddingY={2}
         fontWeight="medium"
-        paddingBottom={2}
         component="h1"
         variant="h5"
       >
         Chats
       </Typography>
 
-      <UserSearchInput getUserId={handleClick} />
+      <Box paddingX={3}>
+        <UserSearchInput getUserId={handleClick} />
 
-      <Typography component="p" variant="h6" paddingTop={2}>
-        Recent
-      </Typography>
-      <TextField
-        onChange={(e) => setFilterHistory(e.target.value)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-          disableUnderline: true,
-          sx: {
-            input: {
-              padding: 0,
+        <Typography
+          fontWeight={'medium'}
+          component="h2"
+          variant="h5"
+          paddingTop={2}
+        >
+          Recent Conversations
+        </Typography>
+
+        <TextField
+          onChange={(e) => setFilterHistory(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+            disableUnderline: true,
+            sx: {
+              input: {
+                padding: 0,
+              },
             },
-          },
-        }}
-        id="search conversations"
-        sx={{
-          backgroundColor: 'lightBg.main',
-          paddingX: 2,
-          paddingY: 1,
-          borderRadius: 1,
-          marginY: 1,
-        }}
-        placeholder="Search conversations"
-        variant="standard"
-        size="small"
-      />
+          }}
+          id="search conversations"
+          sx={{
+            backgroundColor: 'lightBg.main',
+            paddingX: 2,
+            paddingY: 1,
+            borderRadius: 1,
+            marginY: 2,
+          }}
+          placeholder="Search conversations"
+          variant="standard"
+          size="small"
+        />
+      </Box>
 
-      <List sx={{ paddingY: 0 }}>{chatList}</List>
+      <Box sx={{ flexGrow: 1, overflow: 'auto', paddingX: 1 }}>
+        <List>{chatList}</List>
+      </Box>
     </Box>
   );
 };

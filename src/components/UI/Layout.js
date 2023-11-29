@@ -68,7 +68,7 @@ const Layout = () => {
           setCurrentSection={setCurrentSection}
         />
       </Grid>
-      <Grid item xs={3} paddingX={3} bgcolor={'lightBg.light'}>
+      <Grid item xs={3}>
         {currentSection === 'profile' && <Profile />}
         {currentSection === 'contacts' && (
           <Contacts setSelectedChat={setSelectedChat} />
