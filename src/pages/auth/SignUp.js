@@ -14,7 +14,11 @@ import SignupForm from '@/components/UI/SignupForm';
 import { usePageHead } from '@/Context/HeadContext';
 
 const SignUp = () => {
-  const { title, setTitle, description, setDescription } = usePageHead();
+  const { setTitle, setDescription } = usePageHead();
+  setTitle('Sign Up and Connect');
+  setDescription(
+    'Ready to dive into endless conversations? Sign up now and connect with friends, family, and colleagues instantly.'
+  );
 
   const [firstName, setFirstName] = useState('');
   const [firstNameError, setFirstNameError] = useState(false);

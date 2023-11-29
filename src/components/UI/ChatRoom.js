@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {  useQuery } from '@tanstack/react-query';
 import {
   addConversation,
   getAllUsers,
@@ -18,11 +18,11 @@ import {
 } from '../API/api';
 import { chatMessages } from './ChatMessageComponents';
 import { useRef } from 'react';
+import { usePageHead } from '@/Context/HeadContext';
 
 const ChatRoom = ({ chatId }) => {
   const textRef = useRef(null);
-  const queryClient = useQueryClient();
-
+ 
   const { chatHistory, isLoading } = useChatHistory();
 
   const {

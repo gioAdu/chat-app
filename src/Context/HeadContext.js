@@ -6,7 +6,7 @@ const HeadContext = createContext();
 
 // Create a provider component
 export const HeadProvider = ({ children }) => {
-  const [title, setTitle] = useState('Chat app');
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState(
     'Welcome to Chat App, a real-time messaging platform that connects you with people around the world. Sign in or sign up to start chatting!'
   );
@@ -16,7 +16,7 @@ export const HeadProvider = ({ children }) => {
       value={{ title, setTitle, description, setDescription }}
     >
       <Head>
-        <title>{title}</title>
+        <title>Chat App | {title}</title>
         <meta name="description" content={description} />
       </Head>
       {children}

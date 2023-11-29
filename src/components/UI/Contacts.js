@@ -80,7 +80,7 @@ const Contacts = ({ setSelectedChat }) => {
             },
           },
         }}
-        id="filled-basic"
+        id="search conversations"
         sx={{
           backgroundColor: 'lightBg.main',
           paddingX: 2,

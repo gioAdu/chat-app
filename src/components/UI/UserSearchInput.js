@@ -99,7 +99,7 @@ const UserSearchInput = ({getUserId}) => {
           },
         }}
         fullWidth
-        id="filled-basic"
+        id="search users"
         sx={{
           backgroundColor: 'lightBg.main',
           paddingX: 2,

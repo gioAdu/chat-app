@@ -1,18 +1,8 @@
 import { useTheme } from 'next-themes';
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Grid,
-  IconButton,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Container, IconButton, Typography } from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
-import Link from 'next/link';
 import { useState } from 'react';
 
 import { signinFunc } from '@/components/firebase/Auth';
@@ -23,8 +13,15 @@ import {
 import withAuthProtection from '@/components/helpers/validators/authChecker';
 import { getErrorText } from '@/components/helpers/validators/fb-signup';
 import SigninForm from '@/components/UI/SigninForm';
+import { usePageHead } from '@/Context/HeadContext';
 
 const SignIn = () => {
+  const { setTitle, setDescription } = usePageHead();
+  setTitle('Sign in');
+  setDescription(
+    'Welcome back to Chat App! Sign in now to continue chatting with your friends and colleagues'
+  );
+
   const { resolvedTheme, setTheme } = useTheme();
 
   const [emailError, setEmailError] = useState(false);

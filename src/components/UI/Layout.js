@@ -5,9 +5,12 @@ import Contacts from './Contacts';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ChatRoom from './ChatRoom';
+import { usePageHead } from '@/Context/HeadContext';
 
 const Layout = () => {
   const router = useRouter();
+  const { setTitle, setDescription } = usePageHead();
+
   const [currentSection, setCurrentSection] = useState();
   const [selectedChat, setSelectedChat] = useState(null);
 
@@ -44,6 +47,18 @@ const Layout = () => {
       }
     }
   }, [currentSection, selectedChat]);
+
+  useEffect(() => {
+    if (currentSection === 'contacts') {
+      setTitle('Contacts');
+      setDescription(
+        'Discover your network on the Contacts page. View your chat history, keep up with ongoing conversations, or start new ones. Use the search feature to find and connect with other users. Your next conversation is just a click away!'
+      );
+    } else if (currentSection === 'profile') {
+      setTitle('Profile');
+      setDescription('Update your profile information and settings.');
+    }
+  }, [currentSection]);
 
   return (
     <Grid container height={'100vh'}>
