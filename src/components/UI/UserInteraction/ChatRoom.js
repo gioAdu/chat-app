@@ -21,7 +21,7 @@ const ChatRoom = ({ chatId }) => {
       console.log('test');
       lastChatMessageRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [chatHistory, chatId]);
+  }, [chatHistory,chatId]);
 
   const {
     data: users,
@@ -89,6 +89,7 @@ const ChatRoom = ({ chatId }) => {
 
       <Grid item xs style={{ flexGrow: 1, overflow: 'auto' }} p={2} pt={0}>
         <List>{chatMessages(chatHistory, partner.uid, lastChatMessageRef, scrollToBottom)}</List>
+        <Box ref={lastChatMessageRef} key={'last-element'} />
       </Grid>
 
       <Grid

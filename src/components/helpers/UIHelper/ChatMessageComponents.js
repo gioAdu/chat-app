@@ -141,9 +141,8 @@ export const outGoingMsg = (text, timeStamp, imgSrc, index, isSequence) => (
  * @param {string} partnerUID - The UID of the chat partner.
  * @returns {Array} - An array of chat messages.
  */
-export const chatMessages = (chatHistory, partnerUID, lastChatMessageRef,scrollToBottom) => {
+export const chatMessages = (chatHistory, partnerUID) => {
   const currentUser = auth.currentUser;
-  scrollToBottom(lastChatMessageRef)
 
   return chatHistory
     .map((item) => {
