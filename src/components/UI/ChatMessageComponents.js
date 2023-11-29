@@ -161,6 +161,10 @@ export const generateChatList = (
     });
   }
 
+  filteredChatHistory = [...filteredChatHistory].sort(
+    (a, b) => b.lastMsgTimeStamp - a.lastMsgTimeStamp
+  );
+
   return filteredChatHistory.map((item) => {
     const partner = users.find(
       (user) =>
@@ -168,13 +172,17 @@ export const generateChatList = (
         item.userUIDs.find((partner) => partner !== currentUser.uid)
     );
 
+    const bgColor = active === partner.uid ? 'lightBg.lavender' : 'inherit';
+
     return (
       <ListItemButton
         key={item.id}
         onClick={() => handleClick(partner.uid)}
         sx={{
-          backgroundColor:
-            active === partner.uid ? 'lightBg.lavender' : 'inherit',
+          backgroundColor: bgColor,
+          '&:hover': {
+            backgroundColor: bgColor,
+          },
         }}
       >
         <ContactCard item={item} partner={partner} />

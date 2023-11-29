@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 const ContactCard = ({ item, partner }) => {
   const timeStamp = new Date(item.lastMsgTimeStamp).toLocaleTimeString();
+
   return (
     <Card
       sx={{
@@ -31,7 +32,7 @@ const ContactCard = ({ item, partner }) => {
           <Typography variant="p" component="h4">
             {partner?.displayName || 'User'}
           </Typography>
-          {timeStamp && (
+          {timeStamp && item.lastMessage && (
             <Typography
               variant="caption"
               color="text.secondary"
