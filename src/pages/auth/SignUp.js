@@ -10,9 +10,12 @@ import {
 import { signupFunc } from '@/components/firebase/Auth';
 import withAuthProtection from '@/components/helpers/validators/authChecker';
 import { getErrorText } from '@/components/helpers/validators/fb-signup';
-import SignupForm from '@/components/UI/signupForm';
+import SignupForm from '@/components/UI/SignupForm';
+import { usePageHead } from '@/Context/HeadContext';
 
 const SignUp = () => {
+  const { title, setTitle, description, setDescription } = usePageHead();
+
   const [firstName, setFirstName] = useState('');
   const [firstNameError, setFirstNameError] = useState(false);
 
