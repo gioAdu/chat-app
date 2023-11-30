@@ -27,7 +27,7 @@ export const incomingMsg = (text, timeStamp, imgSrc, index, isSequence) => (
         }}
       >
         {!isSequence && (
-          <Image src={imgSrc || '/default_profile.png'} width={36} height={36} alt="profile" />
+          <Image src={imgSrc || '/default_profile.webp'} width={36} height={36} alt="profile" />
         )}
       </Box>
       <Box
@@ -127,7 +127,7 @@ export const outGoingMsg = (text, timeStamp, imgSrc, index, isSequence) => (
         }}
       >
         {!isSequence && (
-          <Image src={imgSrc || '/default_profile.png'} width={36} height={36} alt="profile" />
+          <Image src={imgSrc || '/default_profile.webp'} width={36} height={36} alt="profile" />
         )}
       </Box>
     </Box>

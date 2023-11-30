@@ -7,10 +7,12 @@ import {
   onSnapshot,
   query,
   setDoc,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
 import { useState, useEffect } from 'react';
+import { updateEmail, updateProfile, verifyBeforeUpdateEmail } from 'firebase/auth';
 
 /**
  * Retrieves all users from the database.
@@ -119,5 +121,32 @@ export const addConversation = async (user2UID, message = null) => {
       newConversationData.lastMsgTimeStamp = Date.now();
     }
     await setDoc(conversationRef, newConversationData);
+  }
+};
+
+export const updateUserInfo = async (firstName, email) => {
+  const currentUser = auth.currentUser;
+
+  try {
+    await updateProfile(currentUser, {
+      displayName: firstName,
+    });
+    await verifyBeforeUpdateEmail(currentUser, email);
+    console.log('Profile updated successfully.');
+  } catch (error) {
+    console.error('Error updating profile:', error.message);
+    return error;
+    // Handle the error
+  }
+
+  const userDocRef = doc(db, 'Users', currentUser.uid);
+
+  try {
+    await updateDoc(userDocRef, { email: email, displayName: firstName });
+    console.log('User data updated successfully.');
+  } catch (dbError) {
+    console.error('Error updating user data:', dbError.message);
+    // Handle database error
+    return dbError;
   }
 };

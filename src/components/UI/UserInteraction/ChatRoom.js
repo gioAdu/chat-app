@@ -1,17 +1,30 @@
-import { Send } from '@mui/icons-material';
 import { Box, CircularProgress, Grid, IconButton, List, TextField, Typography } from '@mui/material';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import { Send } from '@mui/icons-material';
+
 import Image from 'next/image';
+
 import { useQuery } from '@tanstack/react-query';
+
 import { addConversation, getAllUsers, useChatHistory } from '../../API/api';
 import { chatMessages } from '../../helpers/UIHelper/ChatMessageComponents';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import PersistentDrawer from '../PersistentDrawer';
+
+const drawerWidth = 300;
 
 const ChatRoom = ({ chatId }) => {
   const textRef = useRef(null);
   const lastChatMessageRef = useRef(null);
+  const [open, setOpen] = useState(false);
 
   const scrollToBottom = () => {
     lastChatMessageRef.current?.scrollIntoView({ behavior: 'instant' });
+  };
+
+  const handleClose = () => {
+    console.log('test');
+    setOpen((prev) => !prev);
   };
 
   const { chatHistory, isLoading } = useChatHistory();
@@ -57,36 +70,54 @@ const ChatRoom = ({ chatId }) => {
       boxShadow={'0 2px 4px rgba(15,34,58,.12)'}
       bgcolor={'lightBg.dark'}
       height={'100dvh'}
+      sx={{ paddingRight: open ? `${drawerWidth}px` : 0 }}
     >
       <Grid
         p={2}
         item
         display={'flex'}
         alignItems={'center'}
+        justifyContent={'space-between'}
         gap={2}
         marginBottom={1}
         paddingBottom={2}
         borderBottom={1}
         borderColor={'lightBg.main'}
       >
-        <Box
-          sx={{
-            minWidth: 50,
-            height: 50,
-            borderRadius: 50,
-            overflow: 'hidden',
-          }}
-        >
-          <Image src={'/default_profile.png'} width={50} height={50} alt="profile" />
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box
+            sx={{
+              width: 50,
+              height: 50,
+              borderRadius: 50,
+              overflow: 'hidden',
+            }}
+          >
+            <Image src={'/default_profile.webp'} width={50} height={50} alt="profile" />
+          </Box>
+
+          <Typography fontWeight={'bold'} component={'h5'}>
+            {partner?.displayName || 'User'}
+          </Typography>
         </Box>
-        <Typography fontWeight={'bold'} component={'h5'}>
-          {partner?.displayName || 'User'}
-        </Typography>
+
+        <IconButton sx={{ marginRight: 5 }} onClick={handleClose}>
+          <PersonOutlineIcon fontSize="large" />
+        </IconButton>
       </Grid>
 
       <Grid item xs style={{ flexGrow: 1, overflow: 'auto' }} p={2} pt={0}>
         <List>{chatMessages(chatHistory, partner.uid, lastChatMessageRef)}</List>
       </Grid>
+
+      <PersistentDrawer
+        open={open}
+        setOpen={setOpen}
+        displayName={partner.displayName}
+        email={partner.email}
+        handleClose={handleClose}
+        drawerWidth={drawerWidth}
+      />
 
       <Grid
         item
@@ -113,7 +144,7 @@ const ChatRoom = ({ chatId }) => {
             paddingY: 1,
             borderRadius: 1,
           }}
-          placeholder="Search users"
+          placeholder="Enter message..."
           variant="standard"
         />
         <IconButton

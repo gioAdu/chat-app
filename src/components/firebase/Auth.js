@@ -20,6 +20,8 @@ export const signupFunc = async (email, password, fullName) => {
 
   try {
     result = await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(result.user, { displayName: fullName });
+
     const user = auth.currentUser;
     await sendEmailVerification(user, {
       url: process.env.NEXT_PUBLIC_URL,
