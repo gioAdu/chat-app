@@ -12,7 +12,12 @@ import {
 } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
 import { useState, useEffect } from 'react';
-import { updateEmail, updateProfile, verifyBeforeUpdateEmail } from 'firebase/auth';
+import {
+  reauthenticateWithCredential,
+  updateEmail,
+  updateProfile,
+  verifyBeforeUpdateEmail,
+} from 'firebase/auth';
 
 /**
  * Retrieves all users from the database.
@@ -124,29 +129,35 @@ export const addConversation = async (user2UID, message = null) => {
   }
 };
 
-export const updateUserInfo = async (firstName, email) => {
+export const updateUserInfo = async (firstName, email, credentials) => {
   const currentUser = auth.currentUser;
+  let emailUpdated = false;
 
   try {
+    await reauthenticateWithCredential(currentUser, credentials);
+
+    if (currentUser.email !== email) {
+      await verifyBeforeUpdateEmail(currentUser, email);
+      emailUpdated = true;
+    }
+
     await updateProfile(currentUser, {
       displayName: firstName,
     });
     await verifyBeforeUpdateEmail(currentUser, email);
-    console.log('Profile updated successfully.');
   } catch (error) {
-    console.error('Error updating profile:', error.message);
-    return error;
-    // Handle the error
+    throw error;
   }
 
   const userDocRef = doc(db, 'Users', currentUser.uid);
 
   try {
     await updateDoc(userDocRef, { email: email, displayName: firstName });
-    console.log('User data updated successfully.');
   } catch (dbError) {
     console.error('Error updating user data:', dbError.message);
     // Handle database error
-    return dbError;
+    throw dbError;
   }
+
+  return emailUpdated ? 'Please confirm email' : 'User info updated';
 };

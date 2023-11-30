@@ -23,7 +23,6 @@ const ChatRoom = ({ chatId }) => {
   };
 
   const handleClose = () => {
-    console.log('test');
     setOpen((prev) => !prev);
   };
 

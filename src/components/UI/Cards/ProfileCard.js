@@ -14,6 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
+import FormDialog from '../credentialsModal';
 
 const ProfileCard = ({
   firstName,
@@ -23,8 +24,11 @@ const ProfileCard = ({
   setUserEmail,
   setName,
   handleSave,
+  errorMsg,
 }) => {
   const [open, setOpen] = useState(cardOpen);
+  const [openModal, setOpenModal] = useState(false);
+
   const handleClick = () => {
     setOpen(!open);
   };
@@ -34,8 +38,11 @@ const ProfileCard = ({
   };
 
   const handleEmailChange = (event) => {
-    console.log('test');
     setUserEmail(event.target.value);
+  };
+
+  const handleUpdate = () => {
+    setOpenModal(true);
   };
 
   const listItem = (label, value) => {
@@ -46,6 +53,14 @@ const ProfileCard = ({
         <InputLabel sx={{ fontSize: '15px' }}>{label}</InputLabel>
         <Typography sx={{ fontSize: '14px', fontWeight: 'medium' }}>{value}</Typography>
       </ListItem>
+    );
+  };
+
+  const errorText = () => {
+    return (
+      <Typography sx={{ paddingTop: 1, textAlign: 'center', color: 'error.main' }}>
+        {errorMsg}
+      </Typography>
     );
   };
 
@@ -112,11 +127,17 @@ const ProfileCard = ({
           </List>
 
           {editMode && (
-            <Box sx={{ textAlign: 'center', paddingBottom: 2 }}>
-              <Button variant="contained" color="success" onClick={handleSave}>
-                Save
-              </Button>
-            </Box>
+            <>
+              {errorMsg && errorText()}
+
+              <Box sx={{ textAlign: 'center', paddingY: 2 }}>
+                <Button variant="contained" color="success" onClick={handleUpdate}>
+                  Save
+                </Button>
+              </Box>
+
+              <FormDialog open={openModal} setOpen={setOpenModal} handleSave={handleSave} />
+            </>
           )}
         </Collapse>
       </Box>

@@ -1,16 +1,21 @@
 import { auth } from '@/components/firebase/config';
 
-import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import { Alert, Box, IconButton, Menu, MenuItem, Snackbar, Typography } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import ProfileCard from '../Cards/ProfileCard';
 import { useState } from 'react';
 import { updateUserInfo } from '@/components/API/api';
-import FormDialog from '@/components/UI/credentialsModal';
+import { getErrorText } from '@/components/helpers/validators/fb-signup';
 
 const Profile = () => {
   const currentUser = auth.currentUser;
 
+  const [editMode, setEditMode] = useState(false);
+  const [firstName, setName] = useState(currentUser.displayName);
+  const [userEmail, setUserEmail] = useState(currentUser.email);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -23,17 +28,18 @@ const Profile = () => {
     setAnchorEl(null);
   };
 
-  const [editMode, setEditMode] = useState(false);
-  const [firstName, setName] = useState(currentUser.displayName);
-  const [userEmail, setUserEmail] = useState(currentUser.email);
-  const [error, setError] = useState(null);
-
-  const handleSave = async () => {
-    const result = await updateUserInfo(firstName, userEmail);
-    console.log(result);
-    setEditMode(false);   
-  }
-
+  const handleSave = async (credentials) => {
+    try {
+     const result = await updateUserInfo(firstName, userEmail, credentials);
+      setEditMode(false);
+      setError(null);
+      setSuccess(result);
+    } catch (error) {
+      const errorText = getErrorText(error.code);
+      setError(errorText);
+      setSuccess(null);
+    }
+  };
 
   return (
     <Box sx={{ paddingX: 3, backgroundColor: 'lightBg.light', height: '100dvh' }}>
@@ -41,7 +47,6 @@ const Profile = () => {
         <Typography component={'h1'} variant="h5" sx={{ paddingY: 2 }}>
           My Profile
         </Typography>
-        <FormDialog/>
 
         <IconButton
           id="edit-button"
@@ -80,7 +85,19 @@ const Profile = () => {
         firstName={firstName}
         setName={setName}
         setUserEmail={setUserEmail}
+        errorMsg={error}
+        successMsg={Boolean(success)}
       />
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={success}
+        autoHideDuration={3000}
+        onClose={() => setSuccess(null)}
+      >
+        <Alert severity="success" sx={{ width: '100%' }}>
+          {success}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
