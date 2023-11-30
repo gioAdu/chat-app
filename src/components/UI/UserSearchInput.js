@@ -38,11 +38,11 @@ const UserSearchInput = ({ getUserId }) => {
   }
 
   const handleSearch = (e) => {
-    const searchValue = e.target.value;
+    const searchValue = e.target.value.toLowerCase();
 
     if (searchValue.trim().length > 0) {
       const tmpFilteredList = users.filter(
-        (user) => user.displayName.includes(searchValue) && user.uid !== currentUser.uid
+        (user) => user.displayName.toLowerCase().includes(searchValue) && user.uid !== currentUser.uid
       );
 
       setFilteredUsers(tmpFilteredList);

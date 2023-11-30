@@ -141,16 +141,16 @@ export const outGoingMsg = (text, timeStamp, imgSrc, index, isSequence) => (
  * @param {string} partnerUID - The UID of the chat partner.
  * @returns {Array} - An array of chat messages.
  */
-export const chatMessages = (chatHistory, partnerUID) => {
+export const chatMessages = (chatHistory, partnerUID, lastChatMessageRef) => {
   const currentUser = auth.currentUser;
 
-  return chatHistory
-    .map((item) => {
-      if (!item.userUIDs.includes(partnerUID)) {
-        return null;
-      }
+  return chatHistory.map((item) => {
+    if (!item.userUIDs.includes(partnerUID)) {
+      return null;
+    }
 
-      return item.messages.map((message, messageIndex) => {
+    return item.messages
+      .map((message, messageIndex) => {
         const key = `${item.id}-${messageIndex}`;
 
         const timeStamp = new Date(message.timeStamp).toLocaleTimeString('en-US', {
@@ -167,11 +167,10 @@ export const chatMessages = (chatHistory, partnerUID) => {
         } else {
           return incomingMsg(message.content, timeStamp, message.img, key, isSequence);
         }
-      });
-    })
+      })
+      .concat(<Box ref={lastChatMessageRef} key={partnerUID} />);
+  });
 };
-
-
 
 /**
  * Generates a chat list based on the provided chat history, users, and search term.

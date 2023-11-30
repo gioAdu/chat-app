@@ -10,18 +10,15 @@ const ChatRoom = ({ chatId }) => {
   const textRef = useRef(null);
   const lastChatMessageRef = useRef(null);
 
-  const scrollToBottom = (ref) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToBottom = () => {
+    lastChatMessageRef.current?.scrollIntoView({ behavior: 'instant' });
   };
 
   const { chatHistory, isLoading } = useChatHistory();
 
   useEffect(() => {
-    if (lastChatMessageRef.current) {
-      console.log('test');
-      lastChatMessageRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [chatHistory,chatId]);
+    scrollToBottom();
+  }, [chatHistory, chatId]);
 
   const {
     data: users,
@@ -88,8 +85,7 @@ const ChatRoom = ({ chatId }) => {
       </Grid>
 
       <Grid item xs style={{ flexGrow: 1, overflow: 'auto' }} p={2} pt={0}>
-        <List>{chatMessages(chatHistory, partner.uid, lastChatMessageRef, scrollToBottom)}</List>
-        <Box ref={lastChatMessageRef} key={'last-element'} />
+        <List>{chatMessages(chatHistory, partner.uid, lastChatMessageRef)}</List>
       </Grid>
 
       <Grid

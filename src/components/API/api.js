@@ -44,6 +44,7 @@ export const useChatHistory = () => {
       q,
       (querySnapshot) => {
         const conversations = [];
+
         querySnapshot.forEach((doc) => {
           const data = doc.data();
           data.id = doc.id;
@@ -57,7 +58,6 @@ export const useChatHistory = () => {
         setIsLoading(false);
       }
     );
-
     // Cleanup function to unsubscribe when the component unmounts
     return () => unsubscribe();
   }, []); // Empty dependency array means this effect runs once on mount
