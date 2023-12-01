@@ -6,18 +6,18 @@ import '@fontsource/roboto/700.css';
 
 import PageProvider from '@/components/helpers/Themes/PageProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { HeadProvider } from '@/Context/HeadContext';
+import { AppProvider, } from '@/Context/AppContext ';
 
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }) {
   return (
-    <HeadProvider>
+    <AppProvider>
       <QueryClientProvider client={queryClient}>
         <PageProvider>
           <Component {...pageProps} />
         </PageProvider>
       </QueryClientProvider>
-    </HeadProvider>
+    </AppProvider>
   );
 }

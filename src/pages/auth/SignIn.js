@@ -10,10 +10,10 @@ import { validateEmail, validatePassword } from '@/components/helpers/validators
 import withAuthProtection from '@/components/helpers/validators/authChecker';
 import { getErrorText } from '@/components/helpers/validators/fb-signup';
 import SigninForm from '@/components/UI/Forms/SigninForm';
-import { usePageHead } from '@/Context/HeadContext';
+import { useCtx } from '@/Context/AppContext ';
 
 const SignIn = () => {
-  const { setTitle, setDescription } = usePageHead();
+  const { setTitle, setDescription } = useCtx();
 
   useLayoutEffect(() => {
     setTitle('Sign Up and Connect');

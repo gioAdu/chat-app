@@ -11,10 +11,10 @@ import { signupFunc } from '@/components/firebase/Auth';
 import withAuthProtection from '@/components/helpers/validators/authChecker';
 import { getErrorText } from '@/components/helpers/validators/fb-signup';
 import SignupForm from '@/components/UI/Forms/SignupForm';
-import { usePageHead } from '@/Context/HeadContext';
+import { useCtx } from '@/Context/AppContext ';
 
 const SignUp = () => {
-  const { setTitle, setDescription } = usePageHead();
+  const { setTitle, setDescription } = useCtx();
 
   useLayoutEffect(() => {
     setTitle('Sign Up and Connect');

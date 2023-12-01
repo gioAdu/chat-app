@@ -4,6 +4,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { auth } from '../../firebase/config';
 import Image from 'next/image';
 import ContactCard from '../../UI/Cards/ContactCard';
+import { useCtx } from '@/Context/AppContext ';
 
 /**
  * Renders an incoming chat message component.
@@ -181,9 +182,15 @@ export const chatMessages = (chatHistory, partnerUID, lastChatMessageRef) => {
  * @returns {Array} - The array of chat list components.
  */
 
-export const generateChatList = (chatHistory, users, handleClick, searchTerm = '') => {
+export const generateChatList = (
+  chatHistory,
+  users,
+  handleClick,
+  searchTerm = '',
+) => {
   const currentUser = auth.currentUser;
   const active = localStorage.getItem('chat');
+
   let filteredChatHistory = chatHistory;
 
   if (searchTerm) {
@@ -212,9 +219,9 @@ export const generateChatList = (chatHistory, users, handleClick, searchTerm = '
           borderRadius: 1,
           transition: 'background-color 0.3s',
 
-          backgroundColor: bgColor ,
+          backgroundColor: bgColor,
           '&:hover': {
-            backgroundColor: bgColor ,
+            backgroundColor: bgColor,
           },
         }}
       >

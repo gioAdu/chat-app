@@ -24,22 +24,33 @@ const SideBar = ({ setCurrentSection }) => {
     await logoutFunc();
     localStorage.removeItem('chat');
     localStorage.removeItem('section');
-
   };
 
   return (
     <List
       component="nav"
       sx={{
-        height: '100dvh',
+        height: '100%',
         display: 'flex',
-        flexDirection: 'column',
+        alignItems: 'center',
+        flexDirection: {
+          xs: 'row',
+          md: 'column',
+        },
         justifyContent: 'space-between',
         boxShadow: '0 2px 4px rgba(15,34,58,.12)',
         backgroundColor: 'lightBg.light_2',
       }}
     >
-      <Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: {
+            xs: 'row',
+            md: 'column',
+          },
+        }}
+      >
         <ListItemButton
           onClick={handleClick('profile')}
           sx={{ display: 'flex', flexDirection: 'column' }}

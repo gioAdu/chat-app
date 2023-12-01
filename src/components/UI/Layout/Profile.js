@@ -42,7 +42,7 @@ const Profile = () => {
   };
 
   return (
-    <Box sx={{ paddingX: 3, backgroundColor: 'lightBg.light', height: '100dvh' }}>
+    <Box sx={{ paddingX: 3, paddingBottom:2, backgroundColor: 'lightBg.light', height: '100%' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Typography component={'h1'} variant="h5" sx={{ paddingY: 2 }}>
           My Profile

@@ -48,7 +48,7 @@ const ProfileCard = ({
   const listItem = (label, value) => {
     return (
       <ListItem
-        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 0.6, paddingX: 0 }}
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 0.6, paddingX: 0  }}
       >
         <InputLabel sx={{ fontSize: '15px' }}>{label}</InputLabel>
         <Typography sx={{ fontSize: '14px', fontWeight: 'medium' }}>{value}</Typography>
@@ -84,7 +84,7 @@ const ProfileCard = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            paddingY: 1.2,
+            paddingY: 1.5,
             paddingX: 2,
           }}
         >
@@ -107,7 +107,7 @@ const ProfileCard = ({
         </ButtonBase>
 
         <Collapse in={open}>
-          <List sx={{ paddingX: 2 }}>
+          <List sx={{ paddingX: 2 ,paddingTop:0 }}>
             {editMode ? (
               <TextField
                 sx={{ marginBottom: 1.5 }}

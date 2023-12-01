@@ -5,11 +5,11 @@ import Chats from './Chats';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ChatRoom from './ChatRoom';
-import { usePageHead } from '@/Context/HeadContext';
+import { useCtx } from '@/Context/AppContext ';
 
 const Layout = () => {
   const router = useRouter();
-  const { setTitle, setDescription } = usePageHead();
+  const { setTitle, setDescription } = useCtx();
 
   const [currentSection, setCurrentSection] = useState();
   const [selectedChat, setSelectedChat] = useState(null);
@@ -62,10 +62,10 @@ const Layout = () => {
 
   return (
     <Grid container height={'100dvh'}>
-      <Grid item>
+      <Grid item xs={12} md="auto" sx={{ flexGrow: 1, flexShrink: 0 }}>
         <SideBar currentSection={currentSection} setCurrentSection={setCurrentSection} />
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={12} md={4} lg={3}>
         {currentSection === 'profile' && <Profile />}
         {currentSection === 'Chats' && <Chats setSelectedChat={setSelectedChat} />}
       </Grid>

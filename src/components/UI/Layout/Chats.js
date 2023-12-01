@@ -15,10 +15,13 @@ import { useQuery } from '@tanstack/react-query';
 import { generateChatList } from '../../helpers/UIHelper/ChatMessageComponents';
 
 import { useState } from 'react';
+import { useCtx } from '@/Context/AppContext ';
 
 const Chats = ({ setSelectedChat }) => {
   const { chatHistory, isLoading } = useChatHistory();
   const [filterHistory, setFilterHistory] = useState('');
+  const { setMobileChat } = useCtx();
+
 
   const {
     data: users,
@@ -35,6 +38,7 @@ const Chats = ({ setSelectedChat }) => {
   }
 
   const handleClick = (id) => {
+    setMobileChat(true);
     setSelectedChat(id);
   };
 
@@ -47,7 +51,8 @@ const Chats = ({ setSelectedChat }) => {
         flexDirection: 'column',
         boxShadow: '0 2px 4px rgba(15,34,58,.12)',
         bgcolor: 'lightBg.light',
-        height: '100dvh',
+        height: '100%',
+        paddingBottom:2,
       }}
     >
       <Typography
