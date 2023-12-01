@@ -202,7 +202,7 @@ export const generateChatList = (chatHistory, users, handleClick, searchTerm = '
       (user) => user.uid === item.userUIDs.find((partner) => partner !== currentUser.uid)
     );
 
-    const bgColor = active === partner.uid ? 'lightBg.lavender' : 'inherit';
+    const bgColor = active === partner?.uid ? 'lightBg.lavender' : 'inherit';
 
     return (
       <ListItemButton
@@ -212,9 +212,9 @@ export const generateChatList = (chatHistory, users, handleClick, searchTerm = '
           borderRadius: 1,
           transition: 'background-color 0.3s',
 
-          backgroundColor: bgColor,
+          backgroundColor: bgColor ,
           '&:hover': {
-            backgroundColor: bgColor,
+            backgroundColor: bgColor ,
           },
         }}
       >

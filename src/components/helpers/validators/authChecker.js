@@ -14,7 +14,6 @@ function withAuthProtection(WrappedComponent, shouldBeAuthenticated) {
   return function ProtectedRoute(props) {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
-
     useEffect(() => {
       return auth.onAuthStateChanged((user) => {
         if (shouldBeAuthenticated && !user) {
