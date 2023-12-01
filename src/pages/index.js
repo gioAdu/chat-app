@@ -1,4 +1,4 @@
-import Layout from '@/components/UI/UserInteraction/Layout';
+import Layout from '@/components/UI/Layout/Layout';
 import withAuthProtection from '@/components/helpers/validators/authChecker';
 
 const Home = () => {

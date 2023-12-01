@@ -11,7 +11,7 @@ import {
 
 import { useState } from 'react';
 
-import { getCredentials } from '../helpers/validators/getUserCredentials';
+import { getCredentials } from '../../helpers/validators/getUserCredentials';
 
 export default function FormDialog({ open, setOpen, handleSave }) {
   const [email, setEmail] = useState('');
@@ -24,7 +24,7 @@ export default function FormDialog({ open, setOpen, handleSave }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const credentials = getCredentials(email, password);
-
+    console.log(open);
     setOpen(false);
     handleSave(credentials);
   };

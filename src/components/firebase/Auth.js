@@ -3,6 +3,7 @@ import {
   sendEmailVerification,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 import { auth, db } from './config';
 import { setDoc, doc } from 'firebase/firestore';
@@ -20,8 +21,9 @@ export const signupFunc = async (email, password, fullName) => {
 
   try {
     result = await createUserWithEmailAndPassword(auth, email, password);
-    await updateProfile(result.user, { displayName: fullName });
+    const updatedInfo = await updateProfile(result.user, { displayName: fullName });
 
+    console.log(auth.currentUser);
     const user = auth.currentUser;
     await sendEmailVerification(user, {
       url: process.env.NEXT_PUBLIC_URL,
@@ -33,10 +35,11 @@ export const signupFunc = async (email, password, fullName) => {
       uid: user.uid,
       displayName: fullName,
     });
+    console.log('updatedInfo');
   } catch (e) {
     error = e;
   }
-
+  console.log('returning result');
   return { result, error };
 };
 

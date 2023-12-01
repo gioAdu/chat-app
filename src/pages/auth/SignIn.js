@@ -3,24 +3,25 @@ import { Box, Container, IconButton, Typography } from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 import { signinFunc } from '@/components/firebase/Auth';
-import {
-  validateEmail,
-  validatePassword,
-} from '@/components/helpers/validators/validateForm';
+import { validateEmail, validatePassword } from '@/components/helpers/validators/validateForm';
 import withAuthProtection from '@/components/helpers/validators/authChecker';
 import { getErrorText } from '@/components/helpers/validators/fb-signup';
-import SigninForm from '@/components/UI/SigninForm';
+import SigninForm from '@/components/UI/Forms/SigninForm';
 import { usePageHead } from '@/Context/HeadContext';
 
 const SignIn = () => {
   const { setTitle, setDescription } = usePageHead();
-  setTitle('Sign in');
-  setDescription(
-    'Welcome back to Chat App! Sign in now to continue chatting with your friends and colleagues'
-  );
+
+  useLayoutEffect(() => {
+    setTitle('Sign Up and Connect');
+    setDescription(
+      'Ready to dive into endless conversations? Sign up now and connect with friends, family, and colleagues instantly.'
+    ),
+      [];
+  });
 
   const { resolvedTheme, setTheme } = useTheme();
 

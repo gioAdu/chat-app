@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
-import FormDialog from '../credentialsModal';
+import FormDialog from '../Forms/credentialsModal';
 
 const ProfileCard = ({
   firstName,

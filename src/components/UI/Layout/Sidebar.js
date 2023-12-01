@@ -8,7 +8,7 @@ import { useTheme } from 'next-themes';
 
 import Link from 'next/link';
 
-import { logoutFunc } from '../firebase/Auth';
+import { logoutFunc } from '../../firebase/Auth';
 
 const SideBar = ({ setCurrentSection }) => {
   const { resolvedTheme, setTheme } = useTheme();
@@ -46,10 +46,7 @@ const SideBar = ({ setCurrentSection }) => {
           <ListItemText primary="Profile" />
         </ListItemButton>
 
-        <ListItemButton
-          onClick={handleClick('Chats')}
-          sx={{ display: 'flex', flexDirection: 'column' }}
-        >
+        <ListItemButton onClick={handleClick('Chats')} sx={{ display: 'flex', flexDirection: 'column' }}>
           <ChatIcon color="action" />
           <ListItemText primary="Chats" />
         </ListItemButton>

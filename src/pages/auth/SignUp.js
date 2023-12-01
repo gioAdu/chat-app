@@ -1,5 +1,5 @@
 import { Container } from '@mui/material';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import {
   validateEmail,
   validateName,
@@ -10,15 +10,18 @@ import {
 import { signupFunc } from '@/components/firebase/Auth';
 import withAuthProtection from '@/components/helpers/validators/authChecker';
 import { getErrorText } from '@/components/helpers/validators/fb-signup';
-import SignupForm from '@/components/UI/SignupForm';
+import SignupForm from '@/components/UI/Forms/SignupForm';
 import { usePageHead } from '@/Context/HeadContext';
 
 const SignUp = () => {
   const { setTitle, setDescription } = usePageHead();
-  setTitle('Sign Up and Connect');
-  setDescription(
-    'Ready to dive into endless conversations? Sign up now and connect with friends, family, and colleagues instantly.'
-  );
+
+  useLayoutEffect(() => {
+    setTitle('Sign Up and Connect');
+    setDescription(
+      'Ready to dive into endless conversations? Sign up now and connect with friends, family, and colleagues instantly.'
+    );
+  }, []);
 
   const [firstName, setFirstName] = useState('');
   const [firstNameError, setFirstNameError] = useState(false);

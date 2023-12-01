@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import SideBar from '../Sidebar';
+import SideBar from './Sidebar';
 import Profile from './Profile';
 import Chats from './Chats';
 import { useRouter } from 'next/router';

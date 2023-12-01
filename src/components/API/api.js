@@ -14,7 +14,6 @@ import { auth, db } from '../firebase/config';
 import { useState, useEffect } from 'react';
 import {
   reauthenticateWithCredential,
-  updateEmail,
   updateProfile,
   verifyBeforeUpdateEmail,
 } from 'firebase/auth';
@@ -129,6 +128,15 @@ export const addConversation = async (user2UID, message = null) => {
   }
 };
 
+/**
+ * Updates the user's information in the database and authentication system.
+ * 
+ * @param {string} firstName - The updated first name of the user.
+ * @param {string} email - The updated email of the user.
+ * @param {object} credentials - The user's credentials for reauthentication.
+ * @returns {Promise<string>} - A promise that resolves to a string indicating the status of the update.
+ * @throws {Error} - If there is an error during the update process.
+ */
 export const updateUserInfo = async (firstName, email, credentials) => {
   const currentUser = auth.currentUser;
   let emailUpdated = false;

@@ -30,7 +30,7 @@ const Profile = () => {
 
   const handleSave = async (credentials) => {
     try {
-     const result = await updateUserInfo(firstName, userEmail, credentials);
+      const result = await updateUserInfo(firstName, userEmail, credentials);
       setEditMode(false);
       setError(null);
       setSuccess(result);
@@ -86,11 +86,11 @@ const Profile = () => {
         setName={setName}
         setUserEmail={setUserEmail}
         errorMsg={error}
-        successMsg={Boolean(success)}
+        successMsg={success}
       />
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={success}
+        open={!!success}
         autoHideDuration={3000}
         onClose={() => setSuccess(null)}
       >
