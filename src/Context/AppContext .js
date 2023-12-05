@@ -7,13 +7,14 @@ const AppContext = createContext();
 // Create a provider component
 export const AppProvider = ({ children }) => {
   const [title, setTitle] = useState('Chat app');
-  const [mobileChatOpen, setMobileChat] = useState(false);
+  const [selectedChat, setSelectedChat] = useState(null);
+
   const [description, setDescription] = useState(
     'Welcome to Chat App, a real-time messaging platform that connects you with people around the world. Sign in or sign up to start chatting!'
   );
 
   return (
-    <AppContext.Provider value={{ setTitle, setDescription, setMobileChat, mobileChatOpen }}>
+    <AppContext.Provider value={{ setTitle, setDescription,   selectedChat,setSelectedChat}}>
       <Head>
         <title>{`Chat App | ${title}`}</title>
         <meta name="description" content={description} />
