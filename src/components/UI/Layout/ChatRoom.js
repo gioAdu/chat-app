@@ -12,11 +12,8 @@ import { useCtx } from '@/Context/AppContext ';
 const drawerWidth = 300;
 
 const ChatRoom = ({ chatId }) => {
-  const { mobileChatOpen } = useCtx();
-
   const [message, setMessage] = useState('');
   const lastChatMessageRef = useRef(null);
-
   const [open, setOpen] = useState(false);
 
   const theme = useTheme();
@@ -33,7 +30,6 @@ const ChatRoom = ({ chatId }) => {
   const { chatHistory, isLoading } = useChatHistory();
 
   useEffect(() => {
-    console.log(lastChatMessageRef.current);
     scrollToBottom();
   }, [chatHistory, chatId, isMobile]);
 
@@ -50,7 +46,6 @@ const ChatRoom = ({ chatId }) => {
       </Grid>
     );
   }
-
   const partner = users.find((user) => user.uid === chatId);
 
   const messageHistory = chatMessages(chatHistory, partner.uid, lastChatMessageRef);
@@ -71,6 +66,17 @@ const ChatRoom = ({ chatId }) => {
     <Box sx={{ height: '100%' }}>
       {!isMobile ? (
         <DesktopChatRoom
+          partner={partner}
+          chatMessages={messageHistory}
+          open={open}
+          setOpen={setOpen}
+          setMessage={setMessage}
+          message={message}
+          handleClose={handleClose}
+          handleClick={handleClick}
+        />
+      ) : (
+        <MobileChatRoom
           drawerWidth={drawerWidth}
           chatMessages={messageHistory}
           partner={partner}
@@ -81,20 +87,6 @@ const ChatRoom = ({ chatId }) => {
           handleClose={handleClose}
           handleClick={handleClick}
         />
-      ) : (
-        <Drawer open={mobileChatOpen} anchor="right" disablePortal>
-          <MobileChatRoom
-            drawerWidth={drawerWidth}
-            chatMessages={messageHistory}
-            partner={partner}
-            open={open}
-            setOpen={setOpen}
-            setMessage={setMessage}
-            message={message}
-            handleClose={handleClose}
-            handleClick={handleClick}
-          />
-        </Drawer>
       )}
     </Box>
   );
