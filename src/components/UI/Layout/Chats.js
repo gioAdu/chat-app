@@ -20,8 +20,6 @@ import { useCtx } from '@/Context/AppContext ';
 const Chats = ({ setSelectedChat }) => {
   const { chatHistory, isLoading } = useChatHistory();
   const [filterHistory, setFilterHistory] = useState('');
-  const { setMobileChat } = useCtx();
-
 
   const {
     data: users,
@@ -38,7 +36,6 @@ const Chats = ({ setSelectedChat }) => {
   }
 
   const handleClick = (id) => {
-    setMobileChat(true);
     setSelectedChat(id);
   };
 
