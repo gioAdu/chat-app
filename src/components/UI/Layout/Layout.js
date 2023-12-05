@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Box, Grid, useMediaQuery } from '@mui/material';
 import SideBar from './Sidebar';
 import Profile from './Profile';
 import Chats from './Chats';
@@ -6,45 +6,46 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ChatRoom from './ChatRoom';
 import { useCtx } from '@/Context/AppContext ';
+import { useTheme } from '@emotion/react';
 
 const Layout = () => {
   const router = useRouter();
   const { setTitle, setDescription } = useCtx();
-
+  const { selectedChat, setSelectedChat } = useCtx();
   const [currentSection, setCurrentSection] = useState();
-  const [selectedChat, setSelectedChat] = useState(null);
+  //const [selectedChat, setSelectedChat] = useState(null);
+
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
     if (router.isReady) {
       const sectionFromURL = router.query.section;
-      const chatFromURL = router.query.chatId;
       const sectionFromStorage = localStorage.getItem('section');
       const chatFromStorage = localStorage.getItem('chat');
-
       setCurrentSection(sectionFromURL || sectionFromStorage || 'Chats');
-      setSelectedChat(chatFromURL || chatFromStorage || null);
+      setSelectedChat(chatFromStorage || null);
     }
   }, [router.isReady]);
 
   // Update state in local storage whenever it changes
   useEffect(() => {
-    if (currentSection !== undefined) {
-      if (currentSection !== 'Chats' && currentSection !== 'profile') {
-        router.push('/?section=Chats');
-      } else if (selectedChat) {
-        localStorage.setItem('chat', selectedChat);
-        localStorage.setItem('section', currentSection);
-        router.push({
-          pathname: router.pathname,
-          query: { section: currentSection, chatId: selectedChat },
-        });
-      } else {
-        localStorage.setItem('section', currentSection);
-        router.push({
-          pathname: router.pathname,
-          query: { section: currentSection },
-        });
-      }
+    if (currentSection == undefined) return;
+    if (currentSection !== 'Chats' && currentSection !== 'profile') {
+      router.push('/?section=Chats');
+    } else if (selectedChat) {
+      localStorage.setItem('chat', selectedChat);
+      localStorage.setItem('section', currentSection);
+      router.push({
+        pathname: router.pathname,
+        query: { section: currentSection, chatId: selectedChat },
+      });
+    } else {
+      localStorage.setItem('section', currentSection);
+      router.push({
+        pathname: router.pathname,
+        query: { section: currentSection },
+      });
     }
   }, [currentSection, selectedChat]);
 
@@ -61,17 +62,19 @@ const Layout = () => {
   }, [currentSection]);
 
   return (
-    <Grid container height={'100dvh'}>
-      <Grid item xs={12} md="auto" sx={{ flexGrow: 1, flexShrink: 0 }}>
+    <Grid container height={'100dvh'} alignContent={'start'}> 
+      <Grid item xs={12} md="auto" sx={{ height: isSmallScreen ? 'fit-content' : '100dvh' }}>
         <SideBar currentSection={currentSection} setCurrentSection={setCurrentSection} />
       </Grid>
-      <Grid item xs={12} md={4} lg={3}>
+
+      <Grid item xs={12} md={4} lg={3} sx={{flexGrow:1}}>
         {currentSection === 'profile' && <Profile />}
         {currentSection === 'Chats' && <Chats setSelectedChat={setSelectedChat} />}
       </Grid>
-      <Grid item xs>
-        {selectedChat && <ChatRoom chatId={selectedChat} />}
-      </Grid>
+
+      {selectedChat && <Grid item xs>
+        <ChatRoom chatId={selectedChat} />
+      </Grid>}
     </Grid>
   );
 };
