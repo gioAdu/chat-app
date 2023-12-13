@@ -4,7 +4,6 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import Image from 'next/image';
 import PersistentDrawer from './PersistentDrawer';
 import { Send } from '@mui/icons-material';
-import { useRef } from 'react';
 
 const DesktopChatRoom = ({
   drawerWidth,
@@ -14,10 +13,9 @@ const DesktopChatRoom = ({
   setOpen,
   open,
   handleClick,
+  message,
+  setMessage,
 }) => {
-  const textRef = useRef(null);
-  
-
   return (
     <Grid
       container
@@ -85,9 +83,10 @@ const DesktopChatRoom = ({
       >
         <TextField
           InputProps={{ disableUnderline: true }}
-          inputRef={textRef}
+          value={message}
           fullWidth
           id="filled-basic"
+          onChange={(e) => setMessage(e.target.value)}
           onKeyDown={(event) => {
             if (event.key === 'Enter') {
               handleClick();
