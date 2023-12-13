@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Drawer, Grid, useMediaQuery, useTheme } from '@mui/material';
+import { Box, CircularProgress, Grid, useMediaQuery, useTheme } from '@mui/material';
 
 import { useQuery } from '@tanstack/react-query';
 
@@ -7,7 +7,6 @@ import { chatMessages } from '../../helpers/UIHelper/ChatMessageComponents';
 import { useEffect, useRef, useState } from 'react';
 import DesktopChatRoom from '../DesktopChatRoom';
 import MobileChatRoom from '../MobileChatRoom';
-import { useCtx } from '@/Context/AppContext ';
 
 const drawerWidth = 300;
 
@@ -52,10 +51,10 @@ const ChatRoom = ({ chatId }) => {
 
   const handleClick = async () => {
     if (message.trim() === '') return;
-
+    console.log('test');
     try {
       await addConversation(chatId, message);
-      textRef.current.value = '';
+      setMessage('');
     } catch (error) {
       // Handle the error here
       console.error(error);
