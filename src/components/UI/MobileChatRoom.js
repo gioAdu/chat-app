@@ -19,20 +19,19 @@ const MobileChatRoom = ({
   open,
   handleClick,
 }) => {
-  const textRef = useRef(null);
+  //const textRef = useRef(null);
   const { selectedChat, setSelectedChat } = useCtx();
   const router = useRouter();
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const handleDrawer = () => {
     setTimeout(() => {
-    const newQuery = { ...router.query };
-    localStorage.removeItem('chat');
-    setSelectedChat(null);
-    delete newQuery.chatId;
+      const newQuery = { ...router.query };
+      localStorage.removeItem('chat');
+      setSelectedChat(null);
+      delete newQuery.chatId;
     }, 200);
   };
-  console.log('test');
 
   useEffect(() => {
     if (selectedChat) {
@@ -43,7 +42,7 @@ const MobileChatRoom = ({
   }, []);
 
   return (
-    <Drawer open={openDrawer} anchor="right" disablePortal>
+    <Drawer open={openDrawer} anchor="right" disablePortal keepMounted>
       <Grid
         container
         direction={'column'}
@@ -118,7 +117,6 @@ const MobileChatRoom = ({
         >
           <TextField
             InputProps={{ disableUnderline: true }}
-            inputRef={textRef}
             fullWidth
             id="filled-basic"
             onKeyDown={(event) => {
