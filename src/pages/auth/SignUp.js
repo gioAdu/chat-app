@@ -70,6 +70,7 @@ const SignUp = () => {
     setLoading(false);
 
     if (error) {
+      console.log(error);
       const errMsg = getErrorText(error.code);
       setErrorMsg(errMsg);
       return;
