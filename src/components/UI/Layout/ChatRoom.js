@@ -51,7 +51,6 @@ const ChatRoom = ({ chatId }) => {
 
   const handleClick = async () => {
     if (message.trim() === '') return;
-    console.log('test');
     try {
       await addConversation(chatId, message);
       setMessage('');
