@@ -19,6 +19,8 @@ const MobileChatRoom = ({
   setOpen,
   open,
   handleClick,
+  message,
+  setMessage,
 }) => {
   //const textRef = useRef(null);
   const { selectedChat, setSelectedChat } = useCtx();
@@ -89,7 +91,7 @@ const MobileChatRoom = ({
             </Typography>
           </Box>
 
-          <IconButton sx={{marginRight:-1}} onClick={handleClose}>
+          <IconButton sx={{ marginRight: -1 }} onClick={handleClose}>
             <PersonOutlineIcon fontSize="large" />
           </IconButton>
         </Grid>
@@ -120,8 +122,10 @@ const MobileChatRoom = ({
         >
           <TextField
             InputProps={{ disableUnderline: true }}
+            value={message}
             fullWidth
             id="filled-basic"
+            onChange={(e) => setMessage(e.target.value)}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
                 handleClick();
