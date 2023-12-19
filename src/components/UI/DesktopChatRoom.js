@@ -55,7 +55,7 @@ const DesktopChatRoom = ({
           </Typography>
         </Box>
 
-        <IconButton sx={{ marginRight: 5 }} onClick={handleClose}>
+        <IconButton sx={{marginRight:-1}} onClick={handleClose}>
           <PersonOutlineIcon fontSize="large" />
         </IconButton>
       </Grid>
