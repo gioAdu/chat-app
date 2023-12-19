@@ -33,15 +33,21 @@ export const darkTheme = createTheme({
 export const globalStyles = css`
   :root {
     body {
-      background-color: #fff;
-      color: #121212;
+      background-color: '#fff';
+      color: '#121212';
+      @media (max-width: 899px) {
+        background-color: #f5f7fb;
+      }
     }
   }
 
   [data-theme='dark'] {
     body {
-      background-color: #121212;
-      color: #fff;
+      background-color: '#121212';
+      color: '#fff';
+      @media (max-width: 899px) {
+        background-color: #303841;
+      }
     }
   }
 `;
