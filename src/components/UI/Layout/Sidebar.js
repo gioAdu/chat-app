@@ -64,7 +64,7 @@ const SideBar = ({ setCurrentSection }) => {
         </ListItemButton>
       </Box>
 
-      <Box sx={{display:'flex'}}>
+      <Box sx={{display:'flex', flexDirection: { xs: 'row', md: 'column' }}}>
         <IconButton
           sx={{ borderRadius: 0 }}
           aria-label={`switch to ${resolvedTheme === 'light' ? 'dark' : 'light'} mode`}
