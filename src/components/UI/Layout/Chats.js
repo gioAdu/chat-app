@@ -15,7 +15,8 @@ import { useQuery } from '@tanstack/react-query';
 import { generateChatList } from '../../helpers/UIHelper/ChatMessageComponents';
 
 import { useState } from 'react';
-import { useCtx } from '@/Context/AppContext ';
+
+import DynamicScrollBar from '@/components/helpers/UIHelper/DynamicScrollBar';
 
 const Chats = ({ setSelectedChat }) => {
   const { chatHistory, isLoading } = useChatHistory();
@@ -98,8 +99,10 @@ const Chats = ({ setSelectedChat }) => {
         />
       </Box>
 
-      <Box sx={{ flexGrow: 1, overflow: 'auto', paddingX: 1 }}>
-        <List>{chatList}</List>
+      <Box sx={{paddingX: 1, overflow:'hidden' }}>
+        <DynamicScrollBar >
+          <List>{chatList}</List>
+        </DynamicScrollBar>
       </Box>
     </Box>
   );
