@@ -129,7 +129,6 @@ export const addConversation = async (user2UID, message = null) => {
     try {
       await setDoc(conversationRef, newConversationData);
     } catch (error) {
-      console.log('testestsetes');
       console.error(error)
     }
   }
