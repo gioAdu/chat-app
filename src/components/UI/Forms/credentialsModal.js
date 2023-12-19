@@ -9,13 +9,13 @@ import {
   TextField,
 } from '@mui/material';
 
-import { useState } from 'react';
+import { useRef } from 'react';
 
 import { getCredentials } from '../../helpers/validators/getUserCredentials';
 
 export default function FormDialog({ open, setOpen, handleSave }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const handleClose = () => {
     setOpen(false);
@@ -23,8 +23,11 @@ export default function FormDialog({ open, setOpen, handleSave }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    
+    const email = emailRef.current.value.trim();
+    const password = passwordRef.current.value.trim();
     const credentials = getCredentials(email, password);
-    console.log(open);
+
     setOpen(false);
     handleSave(credentials);
   };
@@ -37,7 +40,7 @@ export default function FormDialog({ open, setOpen, handleSave }) {
         <Box component="form" onSubmit={handleSubmit}>
           <DialogContent>
             <DialogContentText>
-              To update your profile, please enter your current email and password here.
+              To update your Password, please enter your current email and password here.
             </DialogContentText>
 
             <TextField
@@ -48,8 +51,7 @@ export default function FormDialog({ open, setOpen, handleSave }) {
               type="email"
               fullWidth
               variant="standard"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              inputRef={emailRef}
             />
             <TextField
               margin="dense"
@@ -58,8 +60,7 @@ export default function FormDialog({ open, setOpen, handleSave }) {
               type="password"
               fullWidth
               variant="standard"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              inputRef={passwordRef}
             />
           </DialogContent>
 
