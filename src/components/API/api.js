@@ -26,10 +26,11 @@ export const getAllUsers = async () => {
   return usersList;
 };
 
+
 /**
- * Custom hook to fetch chat history from Firestore.
+ * Custom hook to fetch chat history for the current user.
  * @returns {Object} An object containing the chat history and loading state.
- * @property {Array.<Object>} chatHistory - The array of chat history.
+ * @property {Array} chatHistory - The array of chat conversations.
  * @property {boolean} isLoading - The loading state indicating if the chat history is being fetched.
  */
 export const useChatHistory = () => {
@@ -50,8 +51,12 @@ export const useChatHistory = () => {
         querySnapshot.forEach((doc) => {
           const data = doc.data();
           data.id = doc.id;
-          conversations.push(data);
+
+          if (!(data.messages.length === 0 && data.sender !== currentUser.uid)) {
+            conversations.push(data);
+          }
         });
+
         setChatHistory(conversations);
         setIsLoading(false);
       },
@@ -77,7 +82,6 @@ export const useChatHistory = () => {
  */
 export const addConversation = async (user2UID, message = null) => {
   const currentUser = auth.currentUser;
-  
 
   const sortedUIDs = [currentUser.uid, user2UID].sort();
   const conversationID = sortedUIDs.join('_');
@@ -104,7 +108,7 @@ export const addConversation = async (user2UID, message = null) => {
           { merge: true }
         );
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     }
     // If no message is provided, do nothing
@@ -115,6 +119,7 @@ export const addConversation = async (user2UID, message = null) => {
       messages: [],
       lastMessage: null,
       lastMsgTimeStamp: null,
+      sender: currentUser.uid,
     };
     if (message) {
       newConversationData.messages.push({
@@ -129,7 +134,7 @@ export const addConversation = async (user2UID, message = null) => {
     try {
       await setDoc(conversationRef, newConversationData);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 };
@@ -172,18 +177,18 @@ export const updateUserInfo = async (firstName) => {
  */
 export const updateUserPassword = async (newPassword, credentials) => {
   const currentUser = auth.currentUser;
-  
+
   try {
     await reauthenticateWithCredential(currentUser, credentials);
   } catch (error) {
-    console.error("Error in reauthenticateWithCredential:", error);
+    console.error('Error in reauthenticateWithCredential:', error);
     throw error;
   }
 
   try {
     await updatePassword(currentUser, newPassword);
   } catch (error) {
-    console.error("Error in updatePassword:", error);
+    console.error('Error in updatePassword:', error);
     throw error;
   }
 
