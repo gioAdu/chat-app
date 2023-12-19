@@ -1,12 +1,4 @@
-import {
-  Box,
-  CircularProgress,
-  Grid,
-  InputAdornment,
-  List,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, CircularProgress, Grid, InputAdornment, List, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 import UserSearchInput from '../UserSearchInput';
@@ -47,19 +39,16 @@ const Chats = ({ setSelectedChat }) => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        boxShadow: '0 2px 4px rgba(15,34,58,.12)',
+        boxShadow: {
+          xs: 'none',
+          md: '0 2px 4px rgba(15,34,58,.12)',
+        },
         bgcolor: 'lightBg.light',
         height: '100%',
-        paddingBottom:2,
+        paddingBottom: 2,
       }}
     >
-      <Typography
-        paddingX={3}
-        paddingY={2}
-        fontWeight="medium"
-        component="h1"
-        variant="h5"
-      >
+      <Typography paddingX={3} paddingY={2} fontWeight="medium" component="h1" variant="h5">
         Chats
       </Typography>
 
@@ -99,8 +88,8 @@ const Chats = ({ setSelectedChat }) => {
         />
       </Box>
 
-      <Box sx={{paddingX: 1, overflow:'hidden' }}>
-        <DynamicScrollBar >
+      <Box sx={{ paddingX: 1, overflow: 'hidden' }}>
+        <DynamicScrollBar>
           <List>{chatList}</List>
         </DynamicScrollBar>
       </Box>
