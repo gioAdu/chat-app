@@ -7,6 +7,8 @@ import {
   Button,
   ButtonBase,
   Collapse,
+  IconButton,
+  InputAdornment,
   InputLabel,
   List,
   ListItem,
@@ -15,6 +17,8 @@ import {
 } from '@mui/material';
 import Image from 'next/image';
 import FormDialog from '../Forms/credentialsModal';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {  updateUserPassword } from '@/components/API/api';
 
 const ProfileCard = ({
   firstName,
@@ -25,12 +29,19 @@ const ProfileCard = ({
   editPassword = false,
   setEditPassword,
   setName,
-  handleSave,
+  handleProfileUpdate,
   errorMsg,
   setErrorMsg,
+  setSuccess,
 }) => {
   const [open, setOpen] = useState(cardOpen);
   const [openModal, setOpenModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   let passwordRef = useRef(null);
   let confirmPasswordRef = useRef(null);
 
@@ -44,8 +55,12 @@ const ProfileCard = ({
 
   const handleUpdate = () => {
     if (editProfile) {
-      setName
+      handleProfileUpdate();
+      setEditProfile(false);
+      return;
     }
+
+    if (!editPassword) return;
 
     const password = passwordRef.current.value.trim();
     const confirmPassword = confirmPasswordRef.current.value.trim();
@@ -53,9 +68,24 @@ const ProfileCard = ({
     if (password !== confirmPassword) {
       setErrorMsg('Passwords do not match');
       return;
+    } else if (password.length < 8) {
+      setErrorMsg('Password must be at least 8 characters');
+      return;
     }
 
     setOpenModal(true);
+  };
+
+  const handleSave = async (credentials) => {
+    const password = passwordRef.current.value.trim();
+    try {
+      await updateUserPassword(password, credentials);
+    } catch (error) {
+      return console.error(error);
+    }
+
+    setSuccess('Password updated successfully');
+    setEditPassword(false);
   };
 
   const listItem = (label, value) => {
@@ -121,7 +151,7 @@ const ProfileCard = ({
 
         <Collapse in={open}>
           <List sx={{ paddingX: 2, paddingTop: 0 }}>
-            {editProfile ? (
+            {editProfile && (
               <TextField
                 sx={{ marginBottom: 1.5 }}
                 fullWidth
@@ -129,7 +159,9 @@ const ProfileCard = ({
                 value={firstName}
                 onChange={handleNameChange}
               />
-            ) : (
+            )}
+
+            {!editProfile && !editPassword && (
               <>
                 {listItem('name', firstName)}
                 {listItem('Email', email)}
@@ -140,11 +172,41 @@ const ProfileCard = ({
               <>
                 <TextField
                   inputRef={passwordRef}
-                  sx={{ marginBottom: 1.5 }}
+                  sx={{ marginY: 1.5 }}
                   label="password"
                   fullWidth
+                  type={showPassword ? 'text' : 'password'}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
-                <TextField inputRef={confirmPasswordRef} label="repeat password" fullWidth />
+                <TextField
+                  inputRef={confirmPasswordRef}
+                  label="repeat password"
+                  fullWidth
+                  type={showPassword ? 'text' : 'password'}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               </>
             )}
           </List>
