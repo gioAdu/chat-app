@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -21,13 +21,15 @@ const ProfileCard = ({
   email,
   cardOpen = true,
   editMode = false,
-  setUserEmail,
   setName,
   handleSave,
   errorMsg,
+  setErrorMsg
 }) => {
   const [open, setOpen] = useState(cardOpen);
   const [openModal, setOpenModal] = useState(false);
+  let passwordRef = useRef(null);
+  let confirmPasswordRef = useRef(null)
 
   const handleClick = () => {
     setOpen(!open);
@@ -37,18 +39,22 @@ const ProfileCard = ({
     setName(event.target.value);
   };
 
-  const handleEmailChange = (event) => {
-    setUserEmail(event.target.value);
-  };
-
   const handleUpdate = () => {
+    const password = passwordRef.current.value.trim()
+    const confirmPassword = confirmPasswordRef.current.value.trim()
+
+    if(password !== confirmPassword) {
+      setErrorMsg('Passwords do not match')
+      return
+    }
+
     setOpenModal(true);
   };
 
   const listItem = (label, value) => {
     return (
       <ListItem
-        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 0.6, paddingX: 0  }}
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 0.6, paddingX: 0 }}
       >
         <InputLabel sx={{ fontSize: '15px' }}>{label}</InputLabel>
         <Typography sx={{ fontSize: '14px', fontWeight: 'medium' }}>{value}</Typography>
@@ -107,7 +113,7 @@ const ProfileCard = ({
         </ButtonBase>
 
         <Collapse in={open}>
-          <List sx={{ paddingX: 2 ,paddingTop:0 }}>
+          <List sx={{ paddingX: 2, paddingTop: 0 }}>
             {editMode ? (
               <TextField
                 sx={{ marginBottom: 1.5 }}
@@ -120,7 +126,10 @@ const ProfileCard = ({
               listItem('name', firstName)
             )}
             {editMode ? (
-              <TextField label="Email" fullWidth value={email} onChange={handleEmailChange} />
+              <>
+                <TextField ref={passwordRef} sx={{ marginBottom: 1.5 }} label="password" fullWidth/>
+                <TextField ref={confirmPasswordRef} label="repeat password" fullWidth/>
+              </>
             ) : (
               listItem('Email', email)
             )}
