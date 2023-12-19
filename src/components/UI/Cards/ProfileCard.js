@@ -20,16 +20,19 @@ const ProfileCard = ({
   firstName,
   email,
   cardOpen = true,
-  editMode = false,
+  editProfile = false,
+  setEditProfile,
+  editPassword = false,
+  setEditPassword,
   setName,
   handleSave,
   errorMsg,
-  setErrorMsg
+  setErrorMsg,
 }) => {
   const [open, setOpen] = useState(cardOpen);
   const [openModal, setOpenModal] = useState(false);
   let passwordRef = useRef(null);
-  let confirmPasswordRef = useRef(null)
+  let confirmPasswordRef = useRef(null);
 
   const handleClick = () => {
     setOpen(!open);
@@ -40,12 +43,16 @@ const ProfileCard = ({
   };
 
   const handleUpdate = () => {
-    const password = passwordRef.current.value.trim()
-    const confirmPassword = confirmPasswordRef.current.value.trim()
+    if (editProfile) {
+      setName
+    }
 
-    if(password !== confirmPassword) {
-      setErrorMsg('Passwords do not match')
-      return
+    const password = passwordRef.current.value.trim();
+    const confirmPassword = confirmPasswordRef.current.value.trim();
+
+    if (password !== confirmPassword) {
+      setErrorMsg('Passwords do not match');
+      return;
     }
 
     setOpenModal(true);
@@ -114,7 +121,7 @@ const ProfileCard = ({
 
         <Collapse in={open}>
           <List sx={{ paddingX: 2, paddingTop: 0 }}>
-            {editMode ? (
+            {editProfile ? (
               <TextField
                 sx={{ marginBottom: 1.5 }}
                 fullWidth
@@ -123,25 +130,50 @@ const ProfileCard = ({
                 onChange={handleNameChange}
               />
             ) : (
-              listItem('name', firstName)
-            )}
-            {editMode ? (
               <>
-                <TextField inputRef={passwordRef} sx={{ marginBottom: 1.5 }} label="password" fullWidth/>
-                <TextField inputRef={confirmPasswordRef} label="repeat password" fullWidth/>
+                {listItem('name', firstName)}
+                {listItem('Email', email)}
               </>
-            ) : (
-              listItem('Email', email)
+            )}
+
+            {editPassword && (
+              <>
+                <TextField
+                  inputRef={passwordRef}
+                  sx={{ marginBottom: 1.5 }}
+                  label="password"
+                  fullWidth
+                />
+                <TextField inputRef={confirmPasswordRef} label="repeat password" fullWidth />
+              </>
             )}
           </List>
 
-          {editMode && (
+          {(editPassword || editProfile) && (
             <>
               {errorMsg && errorText()}
 
-              <Box sx={{ textAlign: 'center', paddingY: 2 }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'end',
+                  padding: 2,
+                  gap: 2,
+                }}
+              >
                 <Button variant="contained" color="success" onClick={handleUpdate}>
                   Save
+                </Button>
+
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => {
+                    setEditPassword(false), setEditProfile(false);
+                  }}
+                >
+                  Cancel
                 </Button>
               </Box>
 
