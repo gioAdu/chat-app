@@ -12,11 +12,7 @@ import {
 } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
 import { useState, useEffect } from 'react';
-import {
-  reauthenticateWithCredential,
-  updateProfile,
-  verifyBeforeUpdateEmail,
-} from 'firebase/auth';
+import { reauthenticateWithCredential, updatePassword, updateProfile } from 'firebase/auth';
 
 /**
  * Retrieves all users from the database.
@@ -128,31 +124,20 @@ export const addConversation = async (user2UID, message = null) => {
   }
 };
 
+
 /**
- * Updates the user's information in the database and authentication system.
- * 
- * @param {string} firstName - The updated first name of the user.
- * @param {string} email - The updated email of the user.
- * @param {object} credentials - The user's credentials for reauthentication.
- * @returns {Promise<string>} - A promise that resolves to a string indicating the status of the update.
- * @throws {Error} - If there is an error during the update process.
+ * Updates the user's display name in the authentication and database.
+ * @param {string} firstName - The new first name to update.
+ * @returns {Promise<string>} A promise that resolves to a success message when the display name is updated successfully.
+ * @throws {Error} If there is an error updating the user's display name.
  */
-export const updateUserInfo = async (firstName, email, credentials) => {
+export const updateUserInfo = async (firstName) => {
   const currentUser = auth.currentUser;
-  let emailUpdated = false;
 
   try {
-    await reauthenticateWithCredential(currentUser, credentials);
-
-    if (currentUser.email !== email) {
-      await verifyBeforeUpdateEmail(currentUser, email);
-      emailUpdated = true;
-    }
-
     await updateProfile(currentUser, {
       displayName: firstName,
     });
-    await verifyBeforeUpdateEmail(currentUser, email);
   } catch (error) {
     throw error;
   }
@@ -160,12 +145,12 @@ export const updateUserInfo = async (firstName, email, credentials) => {
   const userDocRef = doc(db, 'Users', currentUser.uid);
 
   try {
-    await updateDoc(userDocRef, { email: email, displayName: firstName });
+    await updateDoc(userDocRef, { displayName: firstName });
   } catch (dbError) {
     console.error('Error updating user data:', dbError.message);
     // Handle database error
     throw dbError;
   }
 
-  return emailUpdated ? 'Please confirm email' : 'User info updated';
+  return 'Display name updated successfully';
 };
