@@ -4,6 +4,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import Image from 'next/image';
 import PersistentDrawer from './PersistentDrawer';
 import { Send } from '@mui/icons-material';
+import DynamicScrollBar from '../helpers/UIHelper/DynamicScrollBar';
 
 const DesktopChatRoom = ({
   drawerWidth,
@@ -59,8 +60,10 @@ const DesktopChatRoom = ({
         </IconButton>
       </Grid>
 
-      <Grid item xs style={{ flexGrow: 1, overflow: 'auto' }} p={2} pt={0}>
-        <List>{chatMessages}</List>
+      <Grid item xs style={{ overflow: 'hidden' }} p={2} pt={0}>
+        <DynamicScrollBar>
+          <List>{chatMessages}</List>
+        </DynamicScrollBar>
       </Grid>
 
       <PersistentDrawer
