@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
 import { useState, useEffect } from 'react';
-import { reauthenticateWithCredential, updatePassword, updateProfile } from 'firebase/auth';
+import { updateProfile } from 'firebase/auth';
 
 /**
  * Retrieves all users from the database.
