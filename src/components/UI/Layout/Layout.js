@@ -67,7 +67,7 @@ const Layout = () => {
         <SideBar currentSection={currentSection} setCurrentSection={setCurrentSection} />
       </Grid>
 
-      <Grid item xs={12} md={4} lg={3} sx={{flexGrow:1}}>
+      <Grid item xs={12} md={4} lg={3} sx={{flexGrow:1, maxHeight:'100dvh'}}>
         {currentSection === 'profile' && <Profile />}
         {currentSection === 'Chats' && <Chats setSelectedChat={setSelectedChat} />}
       </Grid>
