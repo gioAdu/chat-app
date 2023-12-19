@@ -7,7 +7,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useTheme } from 'next-themes';
 
-
 import { logoutFunc } from '../../firebase/Auth';
 import { pink } from '@mui/material/colors';
 
@@ -63,7 +62,9 @@ const SideBar = ({ setCurrentSection }) => {
           <ChatIcon color="action" />
           <ListItemText primary="Chats" />
         </ListItemButton>
+      </Box>
 
+      <Box sx={{display:'flex'}}>
         <IconButton
           sx={{ borderRadius: 0 }}
           aria-label={`switch to ${resolvedTheme === 'light' ? 'dark' : 'light'} mode`}
@@ -71,9 +72,7 @@ const SideBar = ({ setCurrentSection }) => {
         >
           {resolvedTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
         </IconButton>
-      </Box>
 
-      <Box>
         <ListItemButton
           color="action"
           onClick={handleLogout}
