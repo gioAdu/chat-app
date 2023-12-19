@@ -127,8 +127,8 @@ const ProfileCard = ({
             )}
             {editMode ? (
               <>
-                <TextField ref={passwordRef} sx={{ marginBottom: 1.5 }} label="password" fullWidth/>
-                <TextField ref={confirmPasswordRef} label="repeat password" fullWidth/>
+                <TextField inputRef={passwordRef} sx={{ marginBottom: 1.5 }} label="password" fullWidth/>
+                <TextField inputRef={confirmPasswordRef} label="repeat password" fullWidth/>
               </>
             ) : (
               listItem('Email', email)
