@@ -77,6 +77,7 @@ export const useChatHistory = () => {
  */
 export const addConversation = async (user2UID, message = null) => {
   const currentUser = auth.currentUser;
+  
 
   const sortedUIDs = [currentUser.uid, user2UID].sort();
   const conversationID = sortedUIDs.join('_');
@@ -88,19 +89,23 @@ export const addConversation = async (user2UID, message = null) => {
     // If the conversation exists
     if (message) {
       // If a message is provided, append the message to the messages array
-      await setDoc(
-        conversationRef,
-        {
-          messages: arrayUnion({
-            content: message,
-            timeStamp: Date.now(),
-            senderUID: currentUser.uid,
-          }),
-          lastMessage: message,
-          lastMsgTimeStamp: Date.now(),
-        },
-        { merge: true }
-      );
+      try {
+        await setDoc(
+          conversationRef,
+          {
+            messages: arrayUnion({
+              content: message,
+              timeStamp: Date.now(),
+              senderUID: currentUser.uid,
+            }),
+            lastMessage: message,
+            lastMsgTimeStamp: Date.now(),
+          },
+          { merge: true }
+        );
+      } catch (error) {
+        console.error(error)
+      }
     }
     // If no message is provided, do nothing
   } else {
@@ -120,7 +125,13 @@ export const addConversation = async (user2UID, message = null) => {
       newConversationData.lastMessage = message;
       newConversationData.lastMsgTimeStamp = Date.now();
     }
-    await setDoc(conversationRef, newConversationData);
+
+    try {
+      await setDoc(conversationRef, newConversationData);
+    } catch (error) {
+      console.log('testestsetes');
+      console.error(error)
+    }
   }
 };
 
