@@ -9,6 +9,7 @@ import PersistentDrawer from './PersistentDrawer';
 import { Send } from '@mui/icons-material';
 import { useCtx } from '@/Context/AppContext ';
 import { useRouter } from 'next/router';
+import DynamicScrollBar from '../helpers/UIHelper/DynamicScrollBar';
 
 const MobileChatRoom = ({
   drawerWidth,
@@ -94,7 +95,9 @@ const MobileChatRoom = ({
         </Grid>
 
         <Grid item xs style={{ flexGrow: 1, overflow: 'auto' }} p={2} pt={0}>
-          <List>{chatMessages}</List>
+          <DynamicScrollBar>
+            <List>{chatMessages}</List>
+          </DynamicScrollBar>
         </Grid>
 
         <PersistentDrawer
