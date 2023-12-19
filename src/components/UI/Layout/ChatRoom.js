@@ -64,6 +64,7 @@ const ChatRoom = ({ chatId }) => {
     <Box sx={{ height: '100%' }}>
       {!isMobile ? (
         <DesktopChatRoom
+        drawerWidth={drawerWidth}
           partner={partner}
           chatMessages={messageHistory}
           open={open}
