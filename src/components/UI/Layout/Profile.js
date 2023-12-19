@@ -84,8 +84,8 @@ const Profile = () => {
         email={userEmail}
         firstName={firstName}
         setName={setName}
-        setUserEmail={setUserEmail}
         errorMsg={error}
+        setErrorMsg={setError}
         successMsg={success}
       />
       <Snackbar
