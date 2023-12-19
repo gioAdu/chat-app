@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
 import { useState, useEffect } from 'react';
-import { updateProfile } from 'firebase/auth';
+import { reauthenticateWithCredential, updatePassword, updateProfile } from 'firebase/auth';
 
 /**
  * Retrieves all users from the database.
@@ -124,7 +124,6 @@ export const addConversation = async (user2UID, message = null) => {
   }
 };
 
-
 /**
  * Updates the user's display name in the authentication and database.
  * @param {string} firstName - The new first name to update.
@@ -153,4 +152,30 @@ export const updateUserInfo = async (firstName) => {
   }
 
   return 'Display name updated successfully';
+};
+
+/**
+ * Updates the user's password in Firebase authentication.
+ * @param {string} newPassword - The new password to update.
+ * @returns {Promise<string>} A promise that resolves to a success message when the password is updated successfully.
+ * @throws {Error} If there is an error updating the user's password.
+ */
+export const updateUserPassword = async (newPassword, credentials) => {
+  const currentUser = auth.currentUser;
+  
+  try {
+    await reauthenticateWithCredential(currentUser, credentials);
+  } catch (error) {
+    console.error("Error in reauthenticateWithCredential:", error);
+    throw error;
+  }
+
+  try {
+    await updatePassword(currentUser, newPassword);
+  } catch (error) {
+    console.error("Error in updatePassword:", error);
+    throw error;
+  }
+
+  return 'Password updated successfully';
 };
