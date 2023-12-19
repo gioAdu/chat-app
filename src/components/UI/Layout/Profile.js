@@ -10,10 +10,12 @@ import { getErrorText } from '@/components/helpers/validators/fb-signup';
 
 const Profile = () => {
   const currentUser = auth.currentUser;
+  const userEmail = currentUser.email;
 
-  const [editMode, setEditMode] = useState(false);
+  const [editProfile, setEditProfile] = useState(false);
+  const [editPassword, setEditPassword] = useState(false);
+
   const [firstName, setName] = useState(currentUser.displayName);
-  const [userEmail, setUserEmail] = useState(currentUser.email);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -31,7 +33,7 @@ const Profile = () => {
   const handleSave = async (credentials) => {
     try {
       const result = await updateUserInfo(firstName, userEmail, credentials);
-      setEditMode(false);
+      setEditProfile(false);
       setError(null);
       setSuccess(result);
     } catch (error) {
@@ -42,7 +44,7 @@ const Profile = () => {
   };
 
   return (
-    <Box sx={{ paddingX: 3, paddingBottom:2, backgroundColor: 'lightBg.light', height: '100%' }}>
+    <Box sx={{ paddingX: 3, paddingBottom: 2, backgroundColor: 'lightBg.light', height: '100%' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Typography component={'h1'} variant="h5" sx={{ paddingY: 2 }}>
           My Profile
@@ -69,16 +71,26 @@ const Profile = () => {
         >
           <MenuItem
             onClick={() => {
-              setEditMode(true), handleClose();
+              setEditProfile(true), setEditPassword(false), handleClose();
             }}
           >
             Edit Profile
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setEditPassword(true), setEditProfile(false), handleClose();
+            }}
+          >
+            Change Password
           </MenuItem>
         </Menu>
       </Box>
 
       <ProfileCard
-        editMode={editMode}
+        editProfile={editProfile}
+        setEditProfile={setEditProfile}
+        editPassword={editPassword}
+        setEditPassword={setEditPassword}
         handleSave={handleSave}
         displayName={currentUser.displayName}
         email={userEmail}
