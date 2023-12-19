@@ -10,7 +10,7 @@ import { getErrorText } from '@/components/helpers/validators/fb-signup';
 
 const Profile = () => {
   const currentUser = auth.currentUser;
-  const userEmail = currentUser.email;
+  const userEmail = currentUser?.email;
 
   const [editProfile, setEditProfile] = useState(false);
   const [editPassword, setEditPassword] = useState(false);
@@ -30,9 +30,9 @@ const Profile = () => {
     setAnchorEl(null);
   };
 
-  const handleSave = async (credentials) => {
+  const handleProfileUpdate = async () => {
     try {
-      const result = await updateUserInfo(firstName, userEmail, credentials);
+      const result = await updateUserInfo(firstName);
       setEditProfile(false);
       setError(null);
       setSuccess(result);
@@ -90,8 +90,9 @@ const Profile = () => {
         editProfile={editProfile}
         setEditProfile={setEditProfile}
         editPassword={editPassword}
+        setSuccess={setSuccess}
         setEditPassword={setEditPassword}
-        handleSave={handleSave}
+        handleProfileUpdate={handleProfileUpdate}
         displayName={currentUser.displayName}
         email={userEmail}
         firstName={firstName}
