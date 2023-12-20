@@ -4,7 +4,7 @@ import Profile from './Profile';
 import Chats from './Chats';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import ChatRoom from './ChatRoom';
+import ChatRoom from './ChatRoomController';
 import { useCtx } from '@/Context/AppContext ';
 import { useTheme } from '@emotion/react';
 
@@ -13,7 +13,6 @@ const Layout = () => {
   const { setTitle, setDescription } = useCtx();
   const { selectedChat, setSelectedChat } = useCtx();
   const [currentSection, setCurrentSection] = useState();
-  //const [selectedChat, setSelectedChat] = useState(null);
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
