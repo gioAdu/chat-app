@@ -73,8 +73,7 @@ Chat App provides the following functionalities:
 - Profile management
 
 ## Screenshots
-
-|            Solarized dark            |           Solarized Ocean            |
+               
 | :----------------------------------: | :----------------------------------: |
 | ![Sign in](public/screenshots/1.png) | ![Sign up](public/screenshots/2.png) |
 
