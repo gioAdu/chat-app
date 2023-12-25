@@ -1,11 +1,11 @@
-import { Box, Grid, useMediaQuery } from '@mui/material';
+import { Grid, useMediaQuery } from '@mui/material';
 import SideBar from './Sidebar';
 import Profile from './Profile';
 import Chats from './Chats';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ChatRoom from './ChatRoomController';
-import { useCtx } from '@/Context/AppContext ';
+import { useCtx } from '@/Context/AppContext';
 import { useTheme } from '@emotion/react';
 
 const Layout = () => {
@@ -61,19 +61,21 @@ const Layout = () => {
   }, [currentSection]);
 
   return (
-    <Grid container height={'100dvh'} alignContent={'start'}> 
+    <Grid container height={'100dvh'} alignContent={'start'}>
       <Grid item xs={12} md="auto" sx={{ height: isSmallScreen ? 'fit-content' : '100dvh' }}>
         <SideBar currentSection={currentSection} setCurrentSection={setCurrentSection} />
       </Grid>
 
-      <Grid item xs={12} md={4} lg={3} sx={{flexGrow:1, maxHeight:'100dvh'}}>
+      <Grid item xs={12} md={4} lg={3} sx={{ flexGrow: 1, maxHeight: '100dvh' }}>
         {currentSection === 'profile' && <Profile />}
         {currentSection === 'Chats' && <Chats setSelectedChat={setSelectedChat} />}
       </Grid>
 
-      {selectedChat && <Grid item xs>
-        <ChatRoom chatId={selectedChat} />
-      </Grid>}
+      {selectedChat && (
+        <Grid item xs>
+          <ChatRoom chatId={selectedChat} />
+        </Grid>
+      )}
     </Grid>
   );
 };

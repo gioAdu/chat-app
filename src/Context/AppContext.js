@@ -14,7 +14,9 @@ export const AppProvider = ({ children }) => {
   );
 
   return (
-    <AppContext.Provider value={{ setTitle, setDescription,   selectedChat,setSelectedChat}}>
+    <AppContext.Provider
+      value={{ title, setTitle, description, setDescription, selectedChat, setSelectedChat }}
+    >
       <Head>
         <title>{`Chat App | ${title}`}</title>
         <meta name="description" content={description} />

@@ -6,7 +6,7 @@ import '@fontsource/roboto/700.css';
 
 import PageProvider from '@/components/helpers/Themes/PageProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AppProvider, } from '@/Context/AppContext ';
+import { AppProvider } from '@/Context/AppContext';
 
 const queryClient = new QueryClient();
 

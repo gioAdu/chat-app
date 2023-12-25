@@ -10,7 +10,7 @@ import { validateEmail, validatePassword } from '@/components/helpers/validators
 import withAuthProtection from '@/components/helpers/validators/authChecker';
 import { getErrorText } from '@/components/helpers/validators/fb-signup';
 import SigninForm from '@/components/UI/Forms/SigninForm';
-import { useCtx } from '@/Context/AppContext ';
+import { useCtx } from '@/Context/AppContext';
 
 const SignIn = () => {
   const { setTitle, setDescription } = useCtx();

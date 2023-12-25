@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useCtx } from '@/Context/AppContext ';
+import { useCtx } from '@/Context/AppContext';
 
 export default function Custom404() {
   const router = useRouter();

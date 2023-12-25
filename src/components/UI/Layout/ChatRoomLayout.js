@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 
 import PersistentDrawer from '../PersistentDrawer';
 import { Send } from '@mui/icons-material';
-import { useCtx } from '@/Context/AppContext ';
+import { useCtx } from '@/Context/AppContext';
 import DynamicScrollBar from '../../helpers/UIHelper/DynamicScrollBar';
 import ConditionalWrap from '../../helpers/UIHelper/ConditionalWrap';
 
