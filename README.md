@@ -7,51 +7,52 @@ Chat App is a real-time chat application that allows users to seamlessly communi
 The application is built using Next.js for the frontend, Firebase for the backend and hosting, and Material-UI (MUI) for styling.
 
 ## Table of Contents
+
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Features](#features)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
+
 ## Getting Started
 
 To get started with Chat App, follow these steps:
 
 1. Clone the GitHub repository:
 
-    ```bash
-    git clone https://github.com/your-username/chat-app.git
-    ```
+   ```bash
+   git clone https://github.com/your-username/chat-app.git
+   ```
 
 2. Change into the project directory:
 
-    ```bash
-    cd chat-app
-    ```
+   ```bash
+   cd chat-app
+   ```
 
 3. Install dependencies:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 4. Start the development server:
 
-    ```bash
-    npm run dev
-    ```
+   ```bash
+   npm run dev
+   ```
 
-    Or, if you prefer to build and run the production version:
+   Or, if you prefer to build and run the production version:
 
-    ```bash
-    npm run build
-    npm start
-    ```
+   ```bash
+   npm run build
+   npm start
+   ```
+
 5. run tests:
    ```bash
    npm test
    ```
-
-
 
 ## Usage
 
@@ -73,7 +74,9 @@ Chat App provides the following functionalities:
 
 ## Screenshots
 
-|![Sign in](public/screenshots/1.png)|![Sign up](public/screenshots/2.png)|
+|            Solarized dark            |           Solarized Ocean            |
+| :----------------------------------: | :----------------------------------: |
+| ![Sign in](public/screenshots/1.png) | ![Sign up](public/screenshots/2.png) |
 
 ![Home](public/screenshots/3.png)
 ![Chat open](public/screenshots/4.png)
@@ -83,8 +86,6 @@ Chat App provides the following functionalities:
 ![Edit password](public/screenshots/8.png)
 ![Mobile Chat](public/screenshots/9.png)
 ![Mobile layout](public/screenshots/10.png)
-
-
 
 ## License
 
