@@ -37,7 +37,24 @@ To get started with Chat App, follow these steps:
    npm install
    ```
 
-4. Start the development server:
+4. Initialize Firebase:
+
+   - Create a project on the [Firebase Console](https://console.firebase.google.com/).
+   - Obtain your Firebase configuration object (usually found in your Firebase project settings).
+   - Create a `.env` file in the project root and add the following variables:
+
+      ```
+      NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
+      NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-auth-domain
+      NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+      NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+      NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
+      NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
+      ```
+      
+   - Replace the values with your Firebase project's configuration.
+
+5. Start the development server:
 
    ```bash
    npm run dev
@@ -50,7 +67,7 @@ To get started with Chat App, follow these steps:
    npm start
    ```
 
-5. run tests:
+6. run tests:
    ```bash
    npm test
    ```
