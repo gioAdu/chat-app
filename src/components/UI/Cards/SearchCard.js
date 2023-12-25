@@ -15,7 +15,7 @@ const SearchCard = ({ item }) => {
       }}
     >
       <CardMedia sx={{ minWidth: 50, height: 50, borderRadius: 50, overflow: 'hidden' }}>
-        <Image src={item.img || '/default_profile.webp'} width={50} height={50} priority alt="profile" />
+        <Image src={item.img || '/default_profile.webp'} width={50} height={50} alt="profile" />
       </CardMedia>
       <CardContent sx={{ width: '100%' }}>
         <Box display={'flex'} justifyContent={'space-between'}>
