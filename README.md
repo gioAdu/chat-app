@@ -73,8 +73,8 @@ Chat App provides the following functionalities:
 
 ## Screenshots
 
-![Sign in](public/screenshots/1.png)
-![Sign up](public/screenshots/2.png)
+|![Sign in](public/screenshots/1.png)|![Sign up](public/screenshots/2.png)|
+
 ![Home](public/screenshots/3.png)
 ![Chat open](public/screenshots/4.png)
 ![Profile](public/screenshots/5.png)
