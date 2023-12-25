@@ -17,12 +17,14 @@ export const validateSurname = (surname) => {
 };
 
 /**
- * Validates an email address.
+ * Validates an email address using a regular expression.
  * @param {string} email - The email address to be validated.
- * @returns {boolean} - Returns true if the email address is valid, false otherwise.
+ * @returns {boolean} - Returns true if the email address is valid, otherwise false.
  */
 export const validateEmail = (email) => {
-  return !email.includes('@');
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  return !emailRegex.test(email);  
 };
 
 /**
