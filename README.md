@@ -73,7 +73,8 @@ Chat App provides the following functionalities:
 
 ## Screenshots
 
-Include some screenshots to give users a visual preview of your application.
+![Sign in](/screenshots/1.png)
+
 
 
 ## License
