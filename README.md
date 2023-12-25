@@ -11,6 +11,7 @@ The application is built using Next.js for the frontend, Firebase for the backen
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Features](#features)
+- [Screenshots](#Screenshots)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
 
@@ -99,7 +100,7 @@ Chat App provides the following functionalities:
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](https://mit-license.org/).
 
 ## Acknowledgments
 
