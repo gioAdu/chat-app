@@ -23,7 +23,7 @@ export default function FormDialog({ open, setOpen, handleSave }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+
     const email = emailRef.current.value.trim();
     const password = passwordRef.current.value.trim();
     const credentials = getCredentials(email, password);
