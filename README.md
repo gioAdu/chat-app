@@ -74,6 +74,15 @@ Chat App provides the following functionalities:
 ## Screenshots
 
 ![Sign in](public/screenshots/1.png)
+![Sign up](public/screenshots/2.png)
+![Home](public/screenshots/3.png)
+![Chat open](public/screenshots/4.png)
+![Profile](public/screenshots/5.png)
+![Edit button](public/screenshots/6.png)
+![Edit name](public/screenshots/7.png)
+![Edit password](public/screenshots/8.png)
+![Mobile Chat](public/screenshots/9.png)
+![Mobile layout](public/screenshots/10.png)
 
 
 
