@@ -1,12 +1,7 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Grid,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Alert, Box, Button, CircularProgress, Grid, Snackbar, TextField, Typography } from '@mui/material';
 import Link from 'next/link';
+import RecoverModal from './RecoverModal';
+import { useState } from 'react';
 
 const SigninForm = ({
   handleClick,
@@ -19,6 +14,9 @@ const SigninForm = ({
   errorMsg,
   loading,
 }) => {
+  const [open, setOpen] = useState(false);
+  const [success, setSuccess] = useState(false);
+
   return (
     <>
       <Box component="form" onSubmit={handleClick} noValidate sx={{ mt: 1 }}>
@@ -52,9 +50,7 @@ const SigninForm = ({
           onChange={(e) => {
             setPassword(e.target.value);
           }}
-          helperText={
-            passwordError ? 'Password should be at least 8 characters long' : ''
-          }
+          helperText={passwordError ? 'Password should be at least 8 characters long' : ''}
           autoComplete="current-password"
         />
         {errorMsg && (
@@ -63,13 +59,7 @@ const SigninForm = ({
           </Typography>
         )}
         <Box sx={{ position: 'relative' }}>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ my: 2 }}
-            disabled={loading}
-          >
+          <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }} disabled={loading}>
             Log in
           </Button>
           {loading && (
@@ -88,19 +78,32 @@ const SigninForm = ({
       </Box>
       <Grid container>
         <Grid item xs>
-          <Link href="/auth/recover">
-            <Typography sx={{ color: 'primary.main' }}>Forgot password?</Typography>
-          </Link>
+          <Button onClick={() => setOpen(true)}>
+            <Typography sx={{ color: 'primary.main', textTransform: 'none' }}>
+              Forgot password?
+            </Typography>
+          </Button>
         </Grid>
         <Grid item>
           <Typography component={'span'}>Don't have an account?</Typography>
           <Link href="/auth/signup">
-            <Typography sx={{ textAlign: 'center', color: 'primary.main' }}>
-              Sign Up now
-            </Typography>
+            <Typography sx={{ textAlign: 'center', color: 'primary.main' }}>Sign Up now</Typography>
           </Link>
         </Grid>
       </Grid>
+
+      <RecoverModal open={open} setOpen={setOpen} setSuccess={setSuccess}/>
+
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={!!success}
+        autoHideDuration={3000}
+        onClose={() => setSuccess(null)}
+      >
+        <Alert severity="success" sx={{ width: '100%' }}>
+          {success}
+        </Alert>
+      </Snackbar>
     </>
   );
 };
