@@ -78,21 +78,24 @@ Chat App provides the following functionalities:
 | :----------------------------------: | :----------------------------------: |
 | ![Sign in](public/screenshots/1.png) | ![Sign up](public/screenshots/2.png) |
 
+
+
 |               Mobile Chat                |                Mobile Layout                |
 | :--------------------------------------: | :-----------------------------------------: |
 | ![Mobile Chat](public/screenshots/9.png) | ![Mobile layout](public/screenshots/10.png) |
+
+
 
 |               Edit Button                |               Change name                |              Change Password               |
 | :--------------------------------------: | :--------------------------------------: | :----------------------------------------: |
 | ![Edit button](public/screenshots/6.png) | ![Mobile Chat](public/screenshots/7.png) | ![Mobile layout](public/screenshots/8.png) |
 
+
+
 |             Home page             |               Chat open                |
 | :-------------------------------: | :------------------------------------: |
 | ![Home](public/screenshots/3.png) | ![Chat open](public/screenshots/4.png) |
 
-![Profile](public/screenshots/5.png)
-![Edit name](public/screenshots/7.png)
-![Edit password](public/screenshots/8.png)
 
 ## License
 
