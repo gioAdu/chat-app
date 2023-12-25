@@ -57,8 +57,6 @@ Chat App provides the following functionalities:
 - **Conversation History:** Search and view older conversations.
 - **Profile Management:** View your profile, change your name, and update your password.
 
-For detailed usage instructions and examples, refer to the [User Guide](docs/user-guide.md).
-
 ## Features
 
 - Real-time messaging
