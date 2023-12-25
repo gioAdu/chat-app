@@ -46,6 +46,10 @@ To get started with Chat App, follow these steps:
     npm run build
     npm start
     ```
+5. run tests:
+   ``` npm test ```
+
+
 
 ## Usage
 
@@ -64,6 +68,11 @@ Chat App provides the following functionalities:
 - User search functionality
 - Conversation history retrieval
 - Profile management
+
+## Screenshots
+
+Include some screenshots to give users a visual preview of your application.
+
 
 ## License
 
