@@ -78,6 +78,8 @@ Chat App provides the following functionalities:
 | :----------------------------------: | :----------------------------------: |
 | ![Sign in](public/screenshots/1.png) | ![Sign up](public/screenshots/2.png) |
 
+
+
 |               Mobile Chat                |                Mobile Layout                |
 | :--------------------------------------: | :-----------------------------------------: |
 | ![Mobile Chat](public/screenshots/9.png) | ![Mobile layout](public/screenshots/10.png) |
