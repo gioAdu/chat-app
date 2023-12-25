@@ -85,9 +85,9 @@ Chat App provides the following functionalities:
 | ![Mobile Chat](public/screenshots/9.png) | ![Mobile layout](public/screenshots/10.png) |
 
 
-|               Edit Button                ||               Change name                |                Change Password              |
-| :--------------------------------------: || :--------------------------------------: | :-----------------------------------------: |
-| ![Edit button](public/screenshots/6.png) || ![Mobile Chat](public/screenshots/7.png) | ![Mobile layout](public/screenshots/8.png)  |
+|               Edit Button                |               Change name                |                Change Password              |
+| :--------------------------------------: | :--------------------------------------: | :-----------------------------------------: |
+| ![Edit button](public/screenshots/6.png) | ![Mobile Chat](public/screenshots/7.png) | ![Mobile layout](public/screenshots/8.png)  |
 
 ![Home](public/screenshots/3.png)
 ![Chat open](public/screenshots/4.png)
