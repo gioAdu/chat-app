@@ -47,7 +47,9 @@ To get started with Chat App, follow these steps:
     npm start
     ```
 5. run tests:
-   ``` npm test ```
+   ```bash
+   npm test
+   ```
 
 
 
