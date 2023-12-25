@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
 import { useState, useEffect } from 'react';
-import { reauthenticateWithCredential, updatePassword, updateProfile } from 'firebase/auth';
+import { reauthenticateWithCredential, sendPasswordResetEmail, updatePassword, updateProfile } from 'firebase/auth';
 
 /**
  * Retrieves all users from the database.
@@ -25,7 +25,6 @@ export const getAllUsers = async () => {
 
   return usersList;
 };
-
 
 /**
  * Custom hook to fetch chat history for the current user.
@@ -193,4 +192,20 @@ export const updateUserPassword = async (newPassword, credentials) => {
   }
 
   return 'Password updated successfully';
+};
+
+/**
+ * Sends a password reset email to the specified email address.
+ * @param {string} email - The email address to send the password reset email to.
+ * @returns {Promise<string>} A promise that resolves to a success message if the password reset email is sent successfully.
+ * @throws {Error} If an error occurs while sending the password reset email.
+ */
+export const resetPassword = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+  return 'Password reset email sent successfully';
 };
