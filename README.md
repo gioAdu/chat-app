@@ -85,8 +85,6 @@ Chat App provides the following functionalities:
 | ![Mobile Chat](public/screenshots/9.png) | ![Mobile layout](public/screenshots/10.png) |
 
 
-<center>
-</center>
 |             Edit Button                  |
 | :--------------------------------------: |
 |:![Edit button](public/screenshots/6.png)  |
