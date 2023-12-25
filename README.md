@@ -73,7 +73,7 @@ Chat App provides the following functionalities:
 
 ## Screenshots
 
-![Sign in](/screenshots/1.png)
+![Sign in](public/screenshots/1.png)
 
 
 
