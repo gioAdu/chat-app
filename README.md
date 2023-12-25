@@ -86,8 +86,9 @@ Chat App provides the following functionalities:
 
 
 
-|             Edit Button                |
-|![Edit button](public/screenshots/6.png)|
+|             Edit Button                  |
+| :--------------------------------------: |
+|![Edit button](public/screenshots/6.png)  |
 
 
 
