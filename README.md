@@ -73,7 +73,8 @@ Chat App provides the following functionalities:
 - Profile management
 
 ## Screenshots
-               
+
+|           Sign in                    |          Sign Up                     |
 | :----------------------------------: | :----------------------------------: |
 | ![Sign in](public/screenshots/1.png) | ![Sign up](public/screenshots/2.png) |
 
